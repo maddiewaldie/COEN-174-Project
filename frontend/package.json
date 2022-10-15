@@ -3,14 +3,15 @@
   "version": "5.0.0",
   "private": true,
   "dependencies": {
-    "@mui/material": "latest",
     "@mui/lab": "latest",
+    "@mui/material": "latest",
     "@mui/styled-engine-sc": "latest",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-router-dom": "^5.3.4",
     "react-scripts": "latest",
     "styled-components": "latest"
   },
@@ -33,6 +34,6 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "latest"
+    "@craco/craco": "^6.4.5"
   }
 }
