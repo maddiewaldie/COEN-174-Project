@@ -5,6 +5,6 @@ CREATE TABLE Tasks(
 	category VARCHAR(256) NOT NULL,
 	deadline DATE NOT NULL,
 	priority INT NOT NULL,
-	FOREIGN KEY (account_id) REFERENCES Accounts(id),
+	FOREIGN KEY (account_id) REFERENCES Accounts(account_id),
 	PRIMARY KEY(task_id)
 );
