@@ -1,6 +1,7 @@
 <?php 
 
-$conn = mysqli_connect('localhost', 'root', '9204Alex', 'coen146');
+//change password and database accordingling
+$conn = mysqli_connect('localhost', 'root', 'password', 'database');
 
 //check connection
 if(!$conn){
@@ -46,7 +47,7 @@ if(isset($_POST['submit'])){
         if(mysqli_query($conn, $sql)){
             //success
             //if false (no errors) redirects to new submission page 
-            header('Location:create_account.php');
+            header('Location:new_account.php');
         } else{
             echo 'query error: ' . mysqli_error($conn);
         }
