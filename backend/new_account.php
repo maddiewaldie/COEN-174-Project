@@ -1,35 +1,30 @@
 <?php 
 
 //change password and database accordingling
-$conn = mysqli_connect('localhost', 'root', 'password', 'database');
+include('connect.php');
 
-//check connection
-if(!$conn){
-    echo 'Connection Error:' . mysqli_connect_error();
-}
-
+$errors = array('name'=>'', 'password'=>'');
 
 $name = $password = '';
 
+function new_account($json_hash)
+{
 //error would be empty submissions
-$errors = array('name'=>'', 'password'=>'');
-
-if(isset($_POST['submit'])){
 
     //checks if name entered is empty
-    if(empty($_POST['name'])){
+    if(empty($json_hash['name'])){
         $errors['name']='A Name is required <br />';
     } else {
         //user provided name stored in variable $name
-        $name = $_POST['name'];
+        $name = $json_hash['name'];
     }
 
-    if(empty($_POST['password'])){
+    if(empty($json_hash['password'])){
         $errors['password']='A Password is required <br />';
 
     } else {
         //user provided password stored in variable $password
-        $password = $_POST['password'];
+        $password = $json_hash['password'];
     }
 
     //returns false when we don't have any errors
@@ -38,8 +33,8 @@ if(isset($_POST['submit'])){
         echo 'One or More Areas Empty';
     }else{
 
-        $name = mysqli_real_escape_string($conn, $_POST['name']);
-        $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $name = mysqli_real_escape_string($conn, $json_hash['name']);
+        $password = mysqli_real_escape_string($conn, $json_hash['password']);
 
         $sql = "INSERT INTO accounts(name,password) Values('$name', '$password')";
 
@@ -51,7 +46,6 @@ if(isset($_POST['submit'])){
         } else{
             echo 'query error: ' . mysqli_error($conn);
         }
-
     }
 
 }

@@ -7,57 +7,50 @@
 
 <?php 
 
-session_start();
-
-$account_id = $_SESSION['account_id'];
-
-//connection
-$conn = mysqli_connect('localhost', 'root', 'password', 'database');
-
-//check connection
-if(!$conn){
-    echo 'Connection Error:' . mysqli_connect_error();
-}
-
-//may need to use sessions to connect to specific account
-
-$tasks_name = $category = '';
-$deadline = '0000-00-00';
-$priority = 0;
-
-//error would be empty submissions
 $errors = array('tasks_name'=>'', 'category'=>'', 'deadline'=>'', 'priority'=>'');
 
-if(isset($_POST['submit'])){
+function new_task($json_hash){
+
+    $account_id = $json_hash['account_id'];
+
+    //connection
+    include('connect.php');
+
+
+    $tasks_name = $category = '';
+    $deadline = '0000-00-00';
+    $priority = 0;
+
+    //error would be empty submissions
+    
 
     //checks if task_name entered is empty
-    if(empty($_POST['tasks_name'])){
+    if(empty($json_hash['tasks_name'])){
         $errors['tasks_name']='A Task Name is required <br />';
     } else {
         //user provided task name stored in variable $task_name
-        $tasks_name = $_POST['tasks_name'];
+        $tasks_name = $json_hash['tasks_name'];
     }
 
-    if(empty($_POST['category'])){
+    if(empty($json_hash['category'])){
         $errors['category']='A Category is required <br />';
-
     } else {
         //user provided categrory stored in variable $category
-        $category = $_POST['category'];
+        $category = $json_hash['category'];
     }
 
-    if(empty($_POST['deadline'])){
+    if(empty($json_hash['deadline'])){
         $errors['deadline']='A Deadline is required <br />';
     } else {
-       //user provided deadline stored in variable $deadline
-       $deadline = $_POST['deadline'];
+        //user provided deadline stored in variable $deadline
+        $deadline = $json_hash['deadline'];
     }
 
-    if(empty($_POST['priority'])){
+    if(empty($json_hash['priority'])){
         $errors['priority']='A Priority is required <br />';
     } else {
         //user provided priority stored in variable $priority
-        $priority = $_POST['priority'];
+        $priority = $json_hash['priority'];
     }
 
     //returns false when we don't have any errors
@@ -66,27 +59,15 @@ if(isset($_POST['submit'])){
         echo 'One or More Areas Empty';
     }else{
 
-        $task_name = mysqli_real_escape_string($conn, $_POST['tasks_name']);
-        $category = mysqli_real_escape_string($conn, $_POST['category']);
-        $deadline = mysqli_real_escape_string($conn, $_POST['deadline']);
-        $priority = mysqli_real_escape_string($conn, $_POST['priority']);
+        
+        $task_name = mysqli_real_escape_string($conn, $json_hash['tasks_name']);
+        $category = mysqli_real_escape_string($conn, $json_hash['category']);
+        $deadline = mysqli_real_escape_string($conn, $json_hash['deadline']);
+        $priority = mysqli_real_escape_string($conn, $json_hash['priority']);
 
         $sql = "INSERT INTO tasks(account_id, tasks_name,category,deadline,priority) Values('$account_id','$tasks_name', '$category', '$deadline', '$priority')";
 
-        //save to db and check
-        if(mysqli_query($conn, $sql)){
-            //success
-            //if false (no errors) redirects to new submission page 
-            header('Location:create_task.php');
-        } else{
-            echo 'query error: ' . mysqli_error($conn);
-        }
-
     }
-
+    mysqli_close($conn);
 }
-
-session_commit();
-mysqli_close($conn);
-
 ?>

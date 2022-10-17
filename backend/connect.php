@@ -16,32 +16,16 @@ Next Version:
     
 **************************************************************************
 <?php
+
+    $hostname = "localhost";
+    $username = "USERNAME";
+    $password = '';
+    $database = 'DATABASE';
     //connects to database
-    $conn = mysqli_connect('localhost', 'root', '9204Alex', 'coen146');
+    $conn = mysqli_connect($hostname, $username, $password, $database);
 
     //check connection
     if(!$conn){
         echo 'Connection Error:' . mysqli_connect_error();
     }
-
-    session_start();
-
-    $sql = 'SELECT account_id FROM accounts';
-
-    $result = mysqli_query($conn, $sql);
-
-    if(mysqli_num_rows($result) > 0)
-    {
-        while($row = mysqli_fetch_assoc($result)){
-            $_SESSION['account_id']= $row['account_id'];
-        }
-    }else{
-        echo '0 results';
-    }
-
-    if($_SESSION['account_id'])
-    {
-        header('Location: create_task.php');
-    }
-
 ?>
