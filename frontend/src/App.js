@@ -6,18 +6,19 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import LoginPage from './UserInfoView/LogIn';
 import SignUp from './UserInfoView/SignUp';
+import Home from './Home';
 export default function App() {
   return (
    <Router>
-
       <Route exact path='/' exact>
           <LoginPage />
       </Route>
       <Route path='/signup' >
           <SignUp />
       </Route>
-
-          
+      <Route path='/home' >
+          <Home />
+      </Route>
    </Router>
         
   
