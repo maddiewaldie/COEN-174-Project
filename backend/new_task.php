@@ -11,7 +11,7 @@ $errors = array('tasks_name'=>'', 'category'=>'', 'deadline'=>'', 'priority'=>''
 
 function new_task($json_hash){
 
-    $account_id = $json_hash['account_id'];
+    $account_id = $json_hash['id'];
 
     //connection
     include('connect.php');
@@ -65,7 +65,7 @@ function new_task($json_hash){
         $deadline = mysqli_real_escape_string($conn, $json_hash['deadline']);
         $priority = mysqli_real_escape_string($conn, $json_hash['priority']);
 
-        $sql = "INSERT INTO tasks(account_id, tasks_name,category,deadline,priority) Values('$account_id','$tasks_name', '$category', '$deadline', '$priority')";
+        $sql = "INSERT INTO tasks(id, tasks_name,category,deadline,priority) Values('$account_id','$tasks_name', '$category', '$deadline', '$priority')";
 
     }
     mysqli_close($conn);
