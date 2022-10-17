@@ -50,4 +50,6 @@ foreach($queries as $q) {
 	}
 }
 
+mysqli_close($db);
+
 ?>
