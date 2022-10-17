@@ -6,7 +6,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import LoginPage from './UserInfoView/LogIn';
 import SignUp from './UserInfoView/SignUp';
+import ProgressTracker from './Task View/ProgressTracker';
 import Home from './Home';
+import ToDos from './Task View/ToDos';
 export default function App() {
   return (
    <Router>
@@ -19,29 +21,12 @@ export default function App() {
       <Route path='/home' >
           <Home />
       </Route>
+      <Route path='/progresstracker' >
+          <ProgressTracker />
+      </Route>
+      <Route path='/todos' >
+          <ToDos />
+      </Route>
    </Router>
-        
-  
-    /*<Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Goal Tracking App
-        </Typography>
-        <TextField
-          required
-          id="outlined-required"
-          label="Username"
-          defaultValue="Username"
-        />
-        <br>
-        </br>
-        <TextField
-          required
-          id="outlined-required"
-          label="Password"
-          defaultValue="Password"
-        />
-      </Box>
-    </Container>*/
   );
 }
