@@ -81,8 +81,8 @@ const SignUp = () => {
                   </Button>
                   <Grid container>
                     <Grid item>
-                      <Link href="/auth" variant="body2">
-                        {"Already have an account?"} L
+                      <Link href="/" variant="body2">
+                        {"Already have an account?"}
                         <Link to ="/LogIn"> Login </Link>
                       </Link>
                     </Grid>
