@@ -13,6 +13,7 @@ import Grid from '@mui/material/Grid';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as Linker} from 'react-router-dom'
 
 const theme = createTheme();
 const LoginPage = () => {
@@ -82,14 +83,16 @@ const LoginPage = () => {
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
                   />
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Sign In
-                  </Button>
+                  <Linker to={'/home'}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Sign In
+                    </Button>
+                  </Linker>
                   <Grid container>
                     <Grid item xs>
                       <Link href="#" variant="body2">

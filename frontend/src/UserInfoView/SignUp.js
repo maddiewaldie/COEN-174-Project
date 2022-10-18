@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as Linker} from 'react-router-dom'
 
 const theme = createTheme();
 const SignUp = () => {
@@ -71,18 +72,20 @@ const SignUp = () => {
                       </Grid>    
                   </Grid>
    
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Sign Up
-                  </Button>
+                  <Linker to={'/home'}>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      Sign In
+                    </Button>
+                  </Linker>
                   <Grid container>
                     <Grid item>
-                      <Link href="/auth" variant="body2">
-                        {"Already have an account?"} L
+                      <Link href="/" variant="body2">
+                        {"Already have an account?"}
                         <Link to ="/LogIn"> Login </Link>
                       </Link>
                     </Grid>
