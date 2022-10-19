@@ -7,12 +7,7 @@ This folder houses the code for the frontend of the goal tracking app. The code 
 Before you can run the code, you first need to perform a few installations. Follow the steps below to set things up:
 
 1. Open Terminal, and cd to `COEN-174-Project/frontend`.
-2. Run `npm install`.
-3. Run `npm install @mui/material @emotion/react @emotion/styled`.
-4. Run `npm install @mui/material @mui/styled-engine-sc styled-components`.
-5. Run `npm install @fontsource/roboto`.
-6. Run `npm install @mui/icons-material`.
-7. Run `npm install -S react-router-dom`.
+2. Run `./get_dependencies.sh`
 
 ## Running the Code
 
