@@ -12,10 +12,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Linker} from 'react-router-dom'
 
-const theme = createTheme();
 const LoginPage = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -26,7 +24,6 @@ const LoginPage = () => {
         });
       };
       return (
-        <ThemeProvider theme={theme}>
           <Grid container component="main" sx={{ height: '100vh' }}>
             <CssBaseline />
             <Grid
@@ -44,7 +41,7 @@ const LoginPage = () => {
                 backgroundPosition: 'center',
               }}
             />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            
               <Box
                 sx={{
                   my: 8,
@@ -108,8 +105,7 @@ const LoginPage = () => {
                 </Box>
               </Box>
             </Grid>
-          </Grid>
-        </ThemeProvider>
+    
       );
 };
 

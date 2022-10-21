@@ -30,7 +30,7 @@ const Home = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Linker to={'/todos'}>
+                <Linker to={'/TaskPage'}>
                   <Button size="small">
                     See To Do's
                   </Button>
