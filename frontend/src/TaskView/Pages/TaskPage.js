@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Todos from '../Components/ToDos';
-import CreateTodos from '../Components/CreateTodos'
+import TaskDialog from '../Components/TaskDialog'
 import './Task.css';
 
 
@@ -15,7 +15,7 @@ const TaskPage = () => {
                 </header>
                 <section id= "checklist">
                     <Todos />
-                    <CreateTodos />
+                    <TaskDialog />
                     
                 </section>
             </section>
@@ -25,10 +25,7 @@ const TaskPage = () => {
                         Calendar
                     </div>
                 </header>
-            </section>
-            
-
-            
+            </section>  
         </section>
     );
 };

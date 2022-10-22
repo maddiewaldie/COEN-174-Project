@@ -6,10 +6,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import LoginPage from './UserInfoView/LogIn';
 import SignUp from './UserInfoView/SignUp';
-import ProgressTracker from './TaskView/ProgressTracker';
+import ProgressTracker from './Task View/ProgressTracker';
 import Home from './Home';
-//import ToDos from './TaskView/Components/ToDos';
-import TaskPage from './TaskView/Pages/Task';
+import TaskPage from './TaskView/Pages/TaskPage';
 export default function App() {
   return (
    <Router>
