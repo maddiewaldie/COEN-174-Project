@@ -8,7 +8,7 @@ import LoginPage from './UserInfoView/LogIn';
 import SignUp from './UserInfoView/SignUp';
 import ProgressTracker from './Task View/ProgressTracker';
 import Home from './Home';
-import ToDos from './Task View/ToDos';
+import TaskPage from './TaskView/Pages/TaskPage';
 export default function App() {
   return (
    <Router>
@@ -24,8 +24,8 @@ export default function App() {
       <Route path='/progresstracker' >
           <ProgressTracker />
       </Route>
-      <Route path='/todos' >
-          <ToDos />
+      <Route path='/TaskPage' >
+          <TaskPage />
       </Route>
    </Router>
   );

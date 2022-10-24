@@ -1,0 +1,51 @@
+.main{
+    display: flex;
+    justify-content: space-evenly;
+    padding-left: 40px;
+    
+}
+
+#todosSection{
+    display: flex;
+    flex-direction: column;
+    padding-top: 8px;
+    width: 300px;
+
+    
+}
+#Calendar {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+}
+#headerContainer{
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+#calendarContainer{
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    
+}
+
+
+#checklist{
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    width: 20;
+    border-color: black;
+    padding-left: 50px;
+    padding-top:28px;
+    padding-bottom: 32px;
+    align-items: bottom;
+   
+    
+  }
