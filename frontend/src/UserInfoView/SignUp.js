@@ -41,24 +41,15 @@ const SignUp = () => {
             </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <Grid container spacing ={2}>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} sm={12}>
                         <TextField
                             autoComplete="given-name"
-                            name ="firstName"
+                            name ="username"
                             required
                             fullWidth
-                            id="firstName"
-                            label="First Name"
+                            id="username"
+                            label="Username"
                             autoFocus
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                            name ="lastName"
-                            required
-                            fullWidth
-                            id="lastName"
-                            label="Last Name"
                         />
                       </Grid>
                       <Grid item xs={12} >

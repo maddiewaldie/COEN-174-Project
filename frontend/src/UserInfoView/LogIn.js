@@ -60,10 +60,10 @@ const LoginPage = () => {
                     margin="normal"
                     required
                     fullWidth
-                    id="name"
-                    label="Name"
-                    name="name"
-                    autoComplete="name"
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
                     autoFocus
                   />
                   <TextField
