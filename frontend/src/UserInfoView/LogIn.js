@@ -16,7 +16,7 @@ import { Link as Linker} from 'react-router-dom'
 
 const LoginPage = () => {
     const [user, setUser] = useState ({
-      name: "",
+      username: "",
       password: "",
     });
     console.log(user);
@@ -27,7 +27,7 @@ const LoginPage = () => {
       // do get request here
       const data = new FormData(event.currentTarget);
         console.log({
-          name: data.get('name'),
+          username: data.get('username'),
           password: data.get('password'),
         });
     }
@@ -67,14 +67,16 @@ const LoginPage = () => {
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <TextField
-                    type="name"
                     margin="normal"
                     required
                     fullWidth
-                    id="name"
-                    label="Name"
-                    name="name"
-                    autoComplete="name"
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    inputProps={{
+                      "data-testid": "username",
+                    }}
                     autoFocus
                     
                   />
@@ -86,6 +88,9 @@ const LoginPage = () => {
                     label="Password"
                     type="password"
                     id="password"
+                    inputProps={{
+                      "data-testid": "password",
+                    }}
                     autoComplete="current-password"
                     
                   />

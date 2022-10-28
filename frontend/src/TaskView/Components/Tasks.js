@@ -30,7 +30,7 @@ const Tasks = () => {
   const handleCancel = () => {
     setOpen(false);
   }
-  const handleClose = () => {
+  const handleClose = (props) => {
     setOpen(false);
     console.log(name);
     console.log(tags);
@@ -40,6 +40,7 @@ const Tasks = () => {
       tags: tags,
       priority: priority
     })
+
     
   };
   React.useEffect(() => {

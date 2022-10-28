@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider'
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
+import Tasks from './Tasks';
 import {useState} from 'react'
 
 const Todos = () => {

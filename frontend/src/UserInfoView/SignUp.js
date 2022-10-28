@@ -18,17 +18,17 @@ import { Link as Linker} from 'react-router-dom'
 
 const theme = createTheme();
 const SignUp = () => {
-    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [account, setAccount] = useState({
-      name,
+      username,
       password
     });
     const handleSubmit = () => {
       console.log(name);
       console.log(password);
       setAccount({
-        name: name,
+        username: username,
         password: password
       })
       
@@ -66,14 +66,17 @@ const SignUp = () => {
                       <Grid item xs={12} sm={6}>
                         <TextField
                             autoComplete="given-name"
-                            name ="name"
+                            name ="username"
                             required
                             fullWidth
-                            id="name"
-                            label="Full Name"
+                            id="username"
+                            label="Username"
                             autoFocus
-                            value={name}
-                            onChange={(event)=> setName(event.target.value)}
+                            inputProps={{
+                              "data-testid": "username",
+                            }}
+                            value={username}
+                            onChange={(event)=> setUsername(event.target.value)}
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
@@ -86,6 +89,9 @@ const SignUp = () => {
                             fullWidth
                             id="password"
                             label="Password"
+                            inputProps={{
+                              "data-testid": "password"
+                            }}
                             value={password}
                             onChange={(event)=> setPassword(event.target.value)}
                         />
