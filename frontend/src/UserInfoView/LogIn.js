@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,14 +15,24 @@ import Typography from '@mui/material/Typography';
 import { Link as Linker} from 'react-router-dom'
 
 const LoginPage = () => {
+    const [user, setUser] = useState ({
+      name: "",
+      password: "",
+    });
+    console.log(user);
+
+   
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+      event.preventDefault();
+      // do get request here
+      const data = new FormData(event.currentTarget);
         console.log({
-          email: data.get('email'),
+          name: data.get('name'),
           password: data.get('password'),
         });
-      };
+    }
+   
+      
       return (
           <Grid container component="main" sx={{ height: '100vh' }}>
             <CssBaseline />
@@ -57,17 +67,16 @@ const LoginPage = () => {
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <TextField
+                    type="name"
                     margin="normal"
                     required
                     fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                    inputProps={{
-                      "data-testid": "username",
-                    }}
+                    id="name"
+                    label="Name"
+                    name="name"
+                    autoComplete="name"
                     autoFocus
+                    
                   />
                   <TextField
                     margin="normal"
@@ -77,16 +86,14 @@ const LoginPage = () => {
                     label="Password"
                     type="password"
                     id="password"
-                    inputProps={{
-                      "data-testid": "password",
-                    }}
                     autoComplete="current-password"
+                    
                   />
                   <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
                   />
-                  <Linker to={'/home'}>
+              
                     <Button
                       type="submit"
                       fullWidth
@@ -95,7 +102,7 @@ const LoginPage = () => {
                     >
                       Sign In
                     </Button>
-                  </Linker>
+                 
                   <Grid container>
                     <Grid item xs>
                       <Link href="#" variant="body2">
