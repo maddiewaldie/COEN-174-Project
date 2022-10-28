@@ -64,6 +64,9 @@ const LoginPage = () => {
                     label="Username"
                     name="username"
                     autoComplete="username"
+                    inputProps={{
+                      "data-testid": "username",
+                    }}
                     autoFocus
                   />
                   <TextField
@@ -74,6 +77,9 @@ const LoginPage = () => {
                     label="Password"
                     type="password"
                     id="password"
+                    inputProps={{
+                      "data-testid": "password",
+                    }}
                     autoComplete="current-password"
                   />
                   <FormControlLabel

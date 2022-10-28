@@ -50,6 +50,9 @@ const SignUp = () => {
                             id="username"
                             label="Username"
                             autoFocus
+                            inputProps={{
+                              "data-testid": "username",
+                            }}
                         />
                       </Grid>
                       <Grid item xs={12} >
@@ -59,6 +62,9 @@ const SignUp = () => {
                             fullWidth
                             id="password"
                             label="Password"
+                            inputProps={{
+                              "data-testid": "password",
+                            }}
                         />
                       </Grid>    
                   </Grid>

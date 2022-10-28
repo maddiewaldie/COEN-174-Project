@@ -3,11 +3,14 @@
   "version": "5.0.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/icons-material": "^5.10.9",
     "@mui/lab": "latest",
-    "@mui/material": "latest",
-    "@mui/styled-engine-sc": "latest",
+    "@mui/material": "^5.10.11",
+    "@mui/styled-engine-sc": "^5.10.6",
     "@testing-library/jest-dom": "latest",
-    "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
@@ -16,7 +19,7 @@
     "react-router-dom": "^5.3.4",
     "react-scripts": "latest",
     "sort-by": "^1.2.0",
-    "styled-components": "latest"
+    "styled-components": "^5.3.6"
   },
   "scripts": {
     "start": "craco start",
@@ -37,6 +40,8 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^6.4.5"
+    "@craco/craco": "^6.4.5",
+    "@testing-library/react": "^13.4.0",
+    "eslint-plugin-react-hooks": "^4.6.0"
   }
 }
