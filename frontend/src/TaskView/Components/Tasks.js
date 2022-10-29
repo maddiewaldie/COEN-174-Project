@@ -13,17 +13,50 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const TaskDialog = () => {
+const Tasks = () => {
   const [open, setOpen] = React.useState(false);
-
+  const [name, setName] = React.useState("");
+  const [tags, setTags] = React.useState("");
+  const [priority, setPriority] = React.useState("");
+  const [task, setTask] = React.useState({
+    name: "",
+    tags: "",
+    priority: "",
+  });
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleCancel = () => {
     setOpen(false);
-  };
+  }
+  const handleClose = (props) => {
+    setOpen(false);
+    console.log(name);
+    console.log(tags);
+    console.log(priority);
+    setTask({
+      name: name,
+      tags: tags,
+      priority: priority
+    })
 
+    
+  };
+  React.useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos', {
+      method: 'POST',
+      body: JSON.stringify(task),
+      headers: {
+          'Content-type': 'application/json; charset=UTF-8'
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+    });
+  },[task]);
+  
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -39,6 +72,9 @@ const TaskDialog = () => {
             type="task"
             fullWidth
             variant="standard"
+            value={name}
+            onChange={(event) => setName(event.target.value)
+            }
           />
            <Box
             noValidate
@@ -58,13 +94,16 @@ const TaskDialog = () => {
                 inputProps={{
                   name: 'tags',
                 }}
-              >
-                <MenuItem>Work</MenuItem>
-                <MenuItem>Personal</MenuItem>
-                <MenuItem>Health</MenuItem>
-                <MenuItem>Errands</MenuItem>
-                <MenuItem>Leisure</MenuItem>
-                <MenuItem>Miscellaneous</MenuItem>
+                value={tags}
+                onChange={(event) => setTags(event.target.value)}
+                >
+              
+                <MenuItem value="Work">Work</MenuItem>
+                <MenuItem value= "Personal">Personal</MenuItem>
+                <MenuItem value= "Health">Health</MenuItem>
+                <MenuItem value= "Errands">Errands</MenuItem>
+                <MenuItem value= "Leisure">Leisure</MenuItem>
+                <MenuItem value= "Miscellaneous">Miscellaneous</MenuItem>
               </Select>
             </FormControl>
            
@@ -87,10 +126,12 @@ const TaskDialog = () => {
                 inputProps={{
                   name: 'priority',
                 }}
+                value={priority}
+                onChange={(event) => setPriority(event.target.value)}
               >
-                <MenuItem>High</MenuItem>
-                <MenuItem>Medium</MenuItem>
-                <MenuItem>Low</MenuItem>
+                <MenuItem value="High">High</MenuItem>
+                <MenuItem value="Medium">Medium</MenuItem>
+                <MenuItem value="Low">Low</MenuItem>
               
               </Select>
             </FormControl>
@@ -98,7 +139,7 @@ const TaskDialog = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleClose}>Submit</Button>
         </DialogActions>
       </Dialog>
@@ -106,6 +147,6 @@ const TaskDialog = () => {
   );
 }
 
-export default TaskDialog;
+export default Tasks;
 
 

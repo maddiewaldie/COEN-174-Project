@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -15,14 +15,24 @@ import Typography from '@mui/material/Typography';
 import { Link as Linker} from 'react-router-dom'
 
 const LoginPage = () => {
+    const [user, setUser] = useState ({
+      username: "",
+      password: "",
+    });
+    console.log(user);
+
+   
     const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+      event.preventDefault();
+      // do get request here
+      const data = new FormData(event.currentTarget);
         console.log({
-          email: data.get('email'),
+          username: data.get('username'),
           password: data.get('password'),
         });
-      };
+    }
+   
+      
       return (
           <Grid container component="main" sx={{ height: '100vh' }}>
             <CssBaseline />
@@ -68,6 +78,7 @@ const LoginPage = () => {
                       "data-testid": "username",
                     }}
                     autoFocus
+                    
                   />
                   <TextField
                     margin="normal"
@@ -81,12 +92,13 @@ const LoginPage = () => {
                       "data-testid": "password",
                     }}
                     autoComplete="current-password"
+                    
                   />
                   <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
                   />
-                  <Linker to={'/home'}>
+              
                     <Button
                       type="submit"
                       fullWidth
@@ -95,7 +107,7 @@ const LoginPage = () => {
                     >
                       Sign In
                     </Button>
-                  </Linker>
+                 
                   <Grid container>
                     <Grid item xs>
                       <Link href="#" variant="body2">
