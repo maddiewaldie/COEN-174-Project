@@ -30,7 +30,7 @@ const Tasks = () => {
   const handleCancel = () => {
     setOpen(false);
   }
-  const handleClose = (props) => {
+  const handleClose = () => {
     setOpen(false);
     console.log(name);
     console.log(tags);

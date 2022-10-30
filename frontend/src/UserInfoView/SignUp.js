@@ -20,17 +20,27 @@ const theme = createTheme();
 const SignUp = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [userErr, setUserErr] = useState(false);
+    const [passErr, setPassErr] = useState(false);
     const [account, setAccount] = useState({
       username,
       password
     });
-    const handleSubmit = () => {
-      console.log(name);
+    
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      console.log(username);
       console.log(password);
-      setAccount({
-        username: username,
-        password: password
-      })
+
+      if (username == '') setUserErr(true);
+      if (password == '') setPassErr(true);
+      if (username && password){
+        setAccount({
+          username: username,
+          password: password
+        })
+      }
+      
       
     };
     React.useEffect(() => {
@@ -64,8 +74,7 @@ const SignUp = () => {
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <Grid container spacing ={2}>
                       <Grid item xs={12} sm={6}>
-                        <TextField
-                            autoComplete="given-name"
+                        <TextField 
                             name ="username"
                             required
                             fullWidth
@@ -77,6 +86,7 @@ const SignUp = () => {
                             }}
                             value={username}
                             onChange={(event)=> setUsername(event.target.value)}
+                            error={userErr}
                         />
                       </Grid>
                       <Grid item xs={12} sm={6}>
@@ -94,6 +104,7 @@ const SignUp = () => {
                             }}
                             value={password}
                             onChange={(event)=> setPassword(event.target.value)}
+                            error= {passErr}
                         />
                       </Grid>    
                   </Grid>
