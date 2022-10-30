@@ -4,6 +4,7 @@ include 'config.php';
 
 // globals
 $queries = [];
+$body = json_decode(file_get_contents('php://input'), true);
 
 // error would be empty submissions
 function create_account($json_hash) {
@@ -83,15 +84,16 @@ function create_task($json_hash){
 }
 
 // Get query based off request type
-switch($_REQUEST['type']) {
+// TODO remove arguments for functions, formalize across all of backend
+switch($body['type']) {
 	case "create_account":
-		create_account(json_decode($_REQUEST['body'], true));
+		create_account($body);
 		break;
 	case "create_task":
-		create_task(json_decode($_REQUEST['body'], true));
+		create_task($body);
 		break;
 	default:
-		print "Unknown request type \"" . $_REQUEST['type'] . "\"<br>";
+		print "Error: Unknown request type \"" . $_REQUEST['type'] . "\"<br>";
 		exit(1);
 }
 
@@ -99,7 +101,7 @@ switch($_REQUEST['type']) {
 foreach($queries as $q) {
 	if(mysqli_query($db, $q)) print "Query \"$q\" succeeded<br>";
 	else {
-		print "Query \"$q\" failed: " . mysqli_error($db) . "<br>";
+		print "Error: Query \"$q\" failed: " . mysqli_error($db) . "<br>";
 		exit(1);
 	}
 }
