@@ -13,39 +13,54 @@ import Container from '@mui/material/Container';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as Linker} from 'react-router-dom'
+import { Link as Linker} from 'react-router-dom';
+import api_endpoint from '../config.js';
 
 
 const theme = createTheme();
 const SignUp = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [account, setAccount] = useState({
-      username,
-      password
-    });
     const handleSubmit = () => {
-      console.log(name);
+      let bad_input = false;
+
+      // debug
+      console.log(username);
       console.log(password);
-      setAccount({
-        username: username,
+
+      // Check that inputs were not null
+      // TODO print to the page instead of just logging
+      if(!username) {
+        console.log("Error: Missing username");
+        bad_input = true;
+      }
+      if(!password) {
+        console.log("Error: Missing password");
+        bad_input = true;
+      }
+      if(bad_input) return;
+
+      let params = {
+        type: "create_account",
+        name: username,
         password: password
-      })
-      
+      }
+      let xhttp = new XMLHttpRequest();
+
+      // debug
+      console.log(api_endpoint);
+      console.log(params);
+
+      xhttp.open("POST", api_endpoint, true);
+      xhttp
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.onload = function(){
+        // TODO Check if error or success
+        console.log(this.response);
+      }
+      xhttp.send(JSON.stringify(params));
+
     };
-    React.useEffect(() => {
-      fetch('https://jsonplaceholder.typicode.com/users', {
-        method: 'POST',
-        body: JSON.stringify(account),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-      });
-    },[account]);
 
       return (
         <ThemeProvider theme={theme}>

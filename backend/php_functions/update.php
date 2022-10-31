@@ -2,9 +2,6 @@
 
 include "config.php";
 
-// globals
-$queries = []; //list of queries to be run
-
 function update_account($json_hash) {
 	GLOBAL $db;
 	$need_update = false; //set to true if at least one of the fields is set
@@ -46,7 +43,9 @@ function update_account($json_hash) {
 	$update_query .= " WHERE id = " . $json_hash['id'];
 
 	// Push query
-	array_push($GLOBALS['queries'], $update_query);
+	array_push($queries, $update_query);
+
+	return $queries;
 }
 
 function update_task($json_hash) {
@@ -95,31 +94,9 @@ function update_task($json_hash) {
 	$update_query .= " WHERE task_id = " . $json_hash['task_id'];
 
 	// Push query
-	array_push($GLOBALS['queries'], $update_query);
-}
+	array_push($queries, $update_query);
 
-// Get query based off request type
-switch($_REQUEST['type']) {
-	case "update_account":
-		update_account(json_decode($_REQUEST['body'], true));
-		break;
-	case "update_task":
-		update_task(json_decode($_REQUEST['body'], true));
-		break;
-	default:
-		print "Unknown request type \"" . $_REQUEST['type'] . "\"<br>";
-		exit(1);
+	return $queries;
 }
-
-// Attempt to execute query(s) on database
-foreach($queries as $q) {
-	if(mysqli_query($db, $q)) print "Query \"$q\" succeeded<br>";
-	else {
-		print "Query \"$q\" failed: " . mysqli_error($db) . "<br>";
-		exit(1);
-	}
-}
-
-mysqli_close($db);
 
 ?>
