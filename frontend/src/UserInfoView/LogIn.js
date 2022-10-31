@@ -14,6 +14,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Linker} from 'react-router-dom'
+import './styles.css'
 
 const theme = createTheme();
 const LoginPage = () => {

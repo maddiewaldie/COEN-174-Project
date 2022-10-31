@@ -12,7 +12,7 @@ import ToDos from './Task View/ToDos';
 export default function App() {
   return (
    <Router>
-      <Route exact path='/' exact>
+      <Route exact path='/' >
           <LoginPage />
       </Route>
       <Route path='/signup' >
