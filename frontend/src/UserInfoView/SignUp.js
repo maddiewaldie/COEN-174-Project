@@ -13,7 +13,8 @@ import Container from '@mui/material/Container';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as Linker} from 'react-router-dom'
+import { Link as Linker} from 'react-router-dom';
+import api_endpoint from '../config.js';
 
 
 const theme = createTheme();
@@ -39,8 +40,6 @@ const SignUp = () => {
       }
       if(bad_input) return;
 
-      // placeholder: should be more generic (i.e., don't force PHP server to be port 8000)
-      let url = "http://localhost:8000/create.php";
       let params = {
         type: "create_account",
         name: username,
@@ -49,10 +48,10 @@ const SignUp = () => {
       let xhttp = new XMLHttpRequest();
 
       // debug
-      console.log(url);
+      console.log(api_endpoint);
       console.log(params);
 
-      xhttp.open("POST", url, true);
+      xhttp.open("POST", api_endpoint, true);
       xhttp
       xhttp.setRequestHeader("Content-Type", "application/json");
       xhttp.onload = function(){
