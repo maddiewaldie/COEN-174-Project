@@ -6,42 +6,81 @@ import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import dayjs from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Select from '@mui/material/Select';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
-const Tasks = () => {
+/** 
+ * TASK DIALOG COMPONENT  
+ * **/
+const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
+  
+  // for task dialog pop-up
   const [open, setOpen] = React.useState(false);
+
+  // task items 
+  const [taskID, setTaskID] = React.useState(0);
   const [name, setName] = React.useState("");
   const [tags, setTags] = React.useState("");
   const [priority, setPriority] = React.useState("");
+  const [deadline, setDeadline] = React.useState(dayjs('2022-10-31'));
+ 
+  
+  let arr = [];
+  // task object 
   const [task, setTask] = React.useState({
+    taskID: 0,
     name: "",
     tags: "",
     priority: "",
+    deadline: dayjs('2022-10-31'),
+    completed: false
   });
-  const handleClickOpen = () => {
+
+  // task dialog box handling
+  const handleClickOpen = (event) => {
+    event.preventDefault();
     setOpen(true);
   };
 
-  const handleCancel = () => {
+  const handleCancel = (event) => {
+    event.preventDefault();
     setOpen(false);
   }
-  const handleClose = () => {
+  const handleClose = (event) => {
+    event.preventDefault();
     setOpen(false);
-    console.log(name);
-    console.log(tags);
-    console.log(priority);
+    
+    setTaskID(taskID + 1);
+
     setTask({
+      taskID: taskID,
       name: name,
       tags: tags,
-      priority: priority
+      priority: priority,
+      deadline: deadline,
+      completed: completed
     })
+   
+    //setCompleted(false);
+    let tempTask = { taskID: taskID,
+      name: name,
+      tags: tags,
+      priority: priority,
+      deadline: deadline,
+      completed: completed}
 
-    
+    const tasksArr = [...taskItems];
+    tasksArr.push(tempTask); 
+    setTaskItems(tasksArr);
+    sessionStorage.setItem("taskObject", JSON.stringify(tasksArr));
+
   };
   React.useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos', {
@@ -134,7 +173,18 @@ const Tasks = () => {
                 <MenuItem value="Low">Low</MenuItem>
               
               </Select>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                label="Date desktop"
+                inputFormat="MM/DD/YYYY"
+                value={deadline}
+                onChange={(date) => setDeadline(date)}
+                renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
             </FormControl>
+              
            
           </Box>
         </DialogContent>
