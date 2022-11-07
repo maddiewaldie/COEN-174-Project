@@ -14,7 +14,11 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Linker} from 'react-router-dom'
+<<<<<<< Updated upstream
 import './styles.css'
+=======
+import './LogIn.css';
+>>>>>>> Stashed changes
 
 const theme = createTheme();
 const LoginPage = () => {
@@ -97,14 +101,20 @@ const LoginPage = () => {
                   <Grid container>
                     <Grid item xs>
                       <Link href="#" variant="body2">
+                      <div id= "forgotPassButton">
                         Forgot password?
+                      </div>  
                       </Link>
                     </Grid>
+                    
                     <Grid item>
                       <Link href="/signup" variant="body2">
+                      <div id= "signUpButton">
                         {"Don't have an account? Sign Up"}
+                      </div>
                       </Link>
                     </Grid>
+                    
                   </Grid>
                 </Box>
               </Box>

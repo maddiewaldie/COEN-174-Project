@@ -14,6 +14,10 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Linker} from 'react-router-dom'
+<<<<<<< Updated upstream
+=======
+import './SignUp.css';
+>>>>>>> Stashed changes
 
 const theme = createTheme();
 const SignUp = () => {
@@ -37,7 +41,9 @@ const SignUp = () => {
               }}
             />
             <Typography component="h1" variant="h5">
+            <div id= "signUpText">
                   Sign Up
+            </div>
             </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <Grid container spacing ={2}>
@@ -72,6 +78,7 @@ const SignUp = () => {
                       </Grid>    
                   </Grid>
    
+<<<<<<< Updated upstream
                   <Linker to={'/home'}>
                     <Button
                       type="submit"
@@ -82,11 +89,34 @@ const SignUp = () => {
                       Sign In
                     </Button>
                   </Linker>
+=======
+                  <div id= "signUpButton">    
+                    <Button
+                      
+                      onClick={handleSubmit}
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                      
+                    >                      
+                      Sign Up
+                      
+                    </Button>
+                  </div>  
+
+                  
+>>>>>>> Stashed changes
                   <Grid container>
                     <Grid item>
                       <Link href="/" variant="body2">
+                      <div id= "haveAccButton">
                         {"Already have an account?"}
-                        <Link to ="/LogIn"> Login </Link>
+                      </div>  
+                        <Link to ="/LogIn"> 
+                        <div id= "logInButton">
+                        Login
+                        </div>
+                         </Link>
                       </Link>
                     </Grid>
                   </Grid>

@@ -1,0 +1,41 @@
+.MuiGrid-root { /*mui paper-elevation*/
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    top: 150px;
+}
+
+#signUpText {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    top: 250px;
+}
+
+#signUpButton {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    top: 420px;
+}
+
+#haveAccButton {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    top: 70px;
+    right: 120px;
+}
+
+#logInButton {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+    top: 50px;
+    left: 45px;
+}
