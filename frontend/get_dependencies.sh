@@ -6,3 +6,4 @@ npm install @fontsource/roboto
 npm install @mui/icons-material
 npm install -S react-router-dom
 npm install --save-dev @testing-library/react
+npm install --save chart.js react-chartjs-2
