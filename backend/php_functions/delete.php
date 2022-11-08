@@ -5,6 +5,7 @@ include "config.php";
 function delete_account($json_hash) {
 	GLOBAL $db;
 	$id = "";
+	$queries = [];
 
 	// Quit out if id is not passed
 	if(!$json_hash['id']) {
@@ -24,6 +25,7 @@ function delete_account($json_hash) {
 function delete_task($json_hash) {
 	GLOBAL $db;
 	$task_id = "";
+	$queries = [];
 
 	// Quit out if task id is not passed
 	if(!$json_hash['task_id']) {
