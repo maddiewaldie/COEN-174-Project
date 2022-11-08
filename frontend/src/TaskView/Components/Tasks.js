@@ -33,6 +33,7 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
  
   
   let arr = [];
+  let taskarr= [];
   // task object 
   const [task, setTask] = React.useState({
     taskID: 0,
