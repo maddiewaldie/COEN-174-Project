@@ -13,7 +13,8 @@ import Container from '@mui/material/Container';
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link as Linker} from 'react-router-dom'
+import { Link as Linker} from 'react-router-dom';
+import api_endpoint from '../config.js';
 
 
 const theme = createTheme();
@@ -27,11 +28,8 @@ const SignUp = () => {
       password
     });
     
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      console.log(username);
-      console.log(password);
-
+      
+    const handleSubmit = () => {
       if (username == '') setUserErr(true);
       if (password == '') setPassErr(true);
       if (username && password){
@@ -40,22 +38,28 @@ const SignUp = () => {
           password: password
         })
       }
-      
-      
+
+      let params = {
+        type: "create_account",
+        name: username,
+        password: password
+      }
+      let xhttp = new XMLHttpRequest();
+
+      // debug
+      console.log(api_endpoint);
+      console.log(params);
+
+      xhttp.open("POST", api_endpoint, true);
+      xhttp
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.onload = function(){
+        // TODO Check if error or success
+        console.log(this.response);
+      }
+      xhttp.send(JSON.stringify(params));
+
     };
-    React.useEffect(() => {
-      fetch('https://jsonplaceholder.typicode.com/users', {
-        method: 'POST',
-        body: JSON.stringify(account),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8'
-        }
-      })
-      .then(response => response.json())
-      .then(json => {
-        console.log(json);
-      });
-    },[account]);
 
       return (
         <ThemeProvider theme={theme}>
