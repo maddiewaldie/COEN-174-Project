@@ -47,6 +47,7 @@ function create_task($json_hash){
 	$category = "";
 	$deadline = "";
 	$priority = "";
+	$queries = [];
 
 	// list of fields that must not be null
 	$fields = [
