@@ -1,12 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Todos from '../Components/ToDos';
 import Tasks from '../Components/Tasks'
+import Calendar from '../Components/Calendar'
 import './Task.css';
+import Sidebar from '../../UserInfoView/Sidebar';
+
 
 
 const TaskPage = () => {
+    const [taskItems, setTaskItems] = useState([]);
+    const [completed, setCompleted] = useState(false);
+  //  setCompleted(false);
+    useEffect(()=>{
+        const taskStorage = JSON.parse(sessionStorage.getItem("taskObject")) || [];
+      //debugger
+        taskStorage.completed = setCompleted(false);
+        setTaskItems(taskStorage);
+        
+  
+    }, [])
     return (
         <section class="main">
+            <section class="sidebar" id="sidebar">
+                <Sidebar />
+            </section>
             <section class="todos" id="todosSection">
                 <header>
                     <div id= "headerContainer">
@@ -14,8 +31,14 @@ const TaskPage = () => {
                     </div>
                 </header>
                 <section id= "checklist">
-                    <Todos />
-                    <Tasks />
+                    <Todos taskItems={taskItems}
+                           setTaskItems = {setTaskItems}
+                           completed = {completed}
+                           setCompleted = {setCompleted}/>
+                    <Tasks taskItems={taskItems}
+                           setTaskItems = {setTaskItems}
+                           completed = {completed}
+                           setCompleted = {setCompleted}/>
                     
                 </section>
             </section>
@@ -25,6 +48,9 @@ const TaskPage = () => {
                         Calendar
                     </div>
                 </header>
+                <section id= "calendarComponent">
+                    <Calendar />
+                </section>
             </section>  
         </section>
     );
