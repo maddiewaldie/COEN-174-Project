@@ -86,6 +86,29 @@ $ php -S localhost:<port number>
 - Delete the task in the database where:
 	- task_id = value of field `task_id`
 
+### `get_tasks_from_user_id`
+
+```JSON
+{
+	"type": "get_tasks_from_user_id",
+	"account_id": INT
+}
+```
+
+- Return a JSON containing all task_ids where account_id = value of field `account_id`
+
+### `get_user_id`
+
+```JSON
+{
+	"type": "get_user_id",
+	"name": STRING,
+	"password": STRING
+}
+```
+
+- Return a JSON containing the id corresponding to the account whose name = value of field `name` AND whose password = value of field `password`
+
 ### `update_account`
 
 - One or more of the `OPTIONAL` fields must be included
