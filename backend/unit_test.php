@@ -1,5 +1,6 @@
 <?php
 
+
 #---------------testing for database connection----------------- #
 include 'config.php';
 GLOBAL $db;
