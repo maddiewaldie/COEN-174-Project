@@ -19,11 +19,13 @@ import api_endpoint from '../config.js';
 
 const theme = createTheme();
 const SignUp = () => {
+    const account_id = 0;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [userErr, setUserErr] = useState(false);
     const [passErr, setPassErr] = useState(false);
     const [account, setAccount] = useState({
+      account_id,
       username,
       password
     });
@@ -33,7 +35,9 @@ const SignUp = () => {
       if (username == '') setUserErr(true);
       if (password == '') setPassErr(true);
       if (username && password){
+        accountID = JSON.parse(localStorage.getItem("user") || "{}").id
         setAccount({
+          account_id: account_id,
           username: username,
           password: password
         })
@@ -51,11 +55,11 @@ const SignUp = () => {
       console.log(params);
 
       xhttp.open("POST", api_endpoint, true);
-      xhttp
       xhttp.setRequestHeader("Content-Type", "application/json");
       xhttp.onload = function(){
         // TODO Check if error or success
         console.log(this.response);
+        localStorage.setItem("user", JSON.stringify(this.response.data));
       }
       xhttp.send(JSON.stringify(params));
 

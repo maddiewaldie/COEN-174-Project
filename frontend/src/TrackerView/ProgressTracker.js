@@ -50,7 +50,7 @@ function valueLabelFormat(value) {
   return marks.findIndex((mark) => mark.value === value) + 1;
 }
 
-function PercentCompleteGraph(props: CircularProgressProps & { value: number },) {
+function PercentCompleteGraph(props) {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress size= {150} variant="determinate" thickness={3} sx={{ marginLeft: `0px`}} {...props} />

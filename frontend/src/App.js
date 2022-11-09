@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginPage from './UserInfoView/LogIn';
 import SignUp from './UserInfoView/SignUp';
-import ProgressTracker from './Task View/ProgressTracker';
+import ProgressTracker from './TrackerView/ProgressTracker';
 import Home from './Home';
 import TaskPage from './TaskView/Pages/TaskPage';
 export default function App() {

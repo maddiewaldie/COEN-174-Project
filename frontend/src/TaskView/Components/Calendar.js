@@ -5,6 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
+/*** CALENDAR COMPONENT */
 const Calendar = () => {
   const [value, setValue] = React.useState(() => dayjs('2022-12-01T00:00'));
 
