@@ -8,9 +8,9 @@ MARK_ID="$(echo "$IDS" | sed '4p;d' | jq .[0][0] | tr -d '"')"
 TINO_ID="$(echo "$IDS" | sed '5p;d' | jq .[0][0] | tr -d '"')"
 
 # Create accounts for each group member
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_account","id":"'"$AASTHA_ID"'","name":"aastha_changed"}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_account","params":{"id":"'"$AASTHA_ID"'","name":"aastha_changed"}}' http://localhost:8000/endpoint.php
 echo
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_account","id":"'"$LOUIE_ID"'","password":"l_pass_changed"}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_account","params":{"id":"'"$LOUIE_ID"'","password":"l_pass_changed"}}' http://localhost:8000/endpoint.php
 echo
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_account","id":"'"$MADDIE_ID"'","name":"maddie_changed","password":"m_pass_changed"}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_account","params":{"id":"'"$MADDIE_ID"'","name":"maddie_changed","password":"m_pass_changed"}}' http://localhost:8000/endpoint.php
 echo
