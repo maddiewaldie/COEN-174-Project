@@ -27,8 +27,12 @@ switch($body['type']) {
 	case "delete_task":
 		$queries = delete_task($body);
 		break;
-	case "get_id":
-		$queries = get_id($body);
+	case "get_tasks_from_user_id":
+		$queries = get_tasks_from_user_id($body);
+		$return_response = true;
+		break;
+	case "get_user_id":
+		$queries = get_user_id($body);
 		$return_response = true;
 		break;
 	case "update_account":
