@@ -3,10 +3,14 @@
 include 'config.php';
 include 'php_functions/create.php';
 include 'php_functions/delete.php';
+include 'php_functions/get.php';
 include 'php_functions/update.php';
 
 // globals
 $queries;
+$return_response = false; //set to true if get request
+$res = ""; //hold responses
+$responses = [];
 $body = json_decode(file_get_contents('php://input'), true);
 
 // Get query based off request type
@@ -22,6 +26,10 @@ switch($body['type']) {
 		break;
 	case "delete_task":
 		$queries = delete_task($body);
+		break;
+	case "get_id":
+		$queries = get_id($body);
+		$return_response = true;
 		break;
 	case "update_account":
 		$queries = update_account($body);
@@ -42,10 +50,19 @@ if(gettype($queries) != "array") {
 
 // Attempt to execute query(s) on database
 foreach($queries as $q) {
-	if(mysqli_query($db, $q)) print "Query \"$q\" succeeded<br>";
+	if($res = mysqli_query($db, $q)) {
+		if(!$return_response) print "Query \"$q\" succeeded<br>";
+		array_push($responses, mysqli_fetch_all($res));
+	}
 	else {
 		print "Error: Query \"$q\" failed: " . mysqli_error($db) . "<br>";
 		exit(1);
+	}
+}
+
+if($return_response) {
+	foreach($responses as $r) {
+		print json_encode($r);
 	}
 }
 

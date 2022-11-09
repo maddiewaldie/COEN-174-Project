@@ -4,6 +4,7 @@ include "config.php";
 
 function update_account($json_hash) {
 	GLOBAL $db;
+	$queries = [];
 	$need_update = false; //set to true if at least one of the fields is set
 	$update_query = "";
 
@@ -52,6 +53,7 @@ function update_task($json_hash) {
 	GLOBAL $db;
 	$need_update = false; //set to true if at least one of the fields is set
 	$update_query = "";
+	$queries = [];
 
 	// list of fields (excluding task_id)
 	$fields = [
