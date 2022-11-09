@@ -1,7 +1,7 @@
 <?php
 
 #---------------testing for database connection----------------- #
-Include ('config.php');
+include 'config.php';
 GLOBAL $db;
 print $db;
 
