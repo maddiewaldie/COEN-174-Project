@@ -32,8 +32,10 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "create_account",
-	"name": STRING,
-	"password": STRING
+	"params": {
+		"name": STRING,
+		"password": STRING
+	}
 }
 ```
 
@@ -46,11 +48,13 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "create_task",
-	"account_id": INT
-	"tasks_name": STRING,
-	"category": STRING,
-	"deadline": DATE,
-	"priority": INT
+	"params": {
+		"account_id": INT
+		"tasks_name": STRING,
+		"category": STRING,
+		"deadline": DATE,
+		"priority": INT
+	}
 }
 ```
 
@@ -66,7 +70,9 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "delete_account",
-	"id": INT
+	"params": {
+		"id": INT
+	}
 }
 ```
 
@@ -79,7 +85,9 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "delete_task",
-	"task_id": INT
+	"params": {
+		"task_id": INT
+	}
 }
 ```
 
@@ -91,7 +99,9 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "get_tasks_from_user_id",
-	"account_id": INT
+	"params": {
+		"account_id": INT
+	}
 }
 ```
 
@@ -102,8 +112,10 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "get_user_id",
-	"name": STRING,
-	"password": STRING
+	"params": {
+		"name": STRING,
+		"password": STRING
+	}
 }
 ```
 
@@ -116,9 +128,11 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "update_account",
-	"id": INT,
-	OPTIONAL "name": STRING,
-	OPTIONAL "password": STRING
+	"params": {
+		"id": INT,
+		OPTIONAL "name": STRING,
+		OPTIONAL "password": STRING
+	}
 }
 ```
 
@@ -133,12 +147,14 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "update_task",
-	"task_id": INT,
-	OPTIONAL "account_id": INT,
-	OPTIONAL "tasks_name": STRING,
-	OPTIONAL "category": STRING,
-	OPTIONAL "deadline": DATE,
-	OPTIONAL "priority": INT,
+	"params": {
+		"task_id": INT,
+		OPTIONAL "account_id": INT,
+		OPTIONAL "tasks_name": STRING,
+		OPTIONAL "category": STRING,
+		OPTIONAL "deadline": DATE,
+		OPTIONAL "priority": INT,
+	}
 }
 ```
 
