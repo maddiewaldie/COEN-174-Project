@@ -1,3 +1,5 @@
+/**Task-related options  */
+
 /*  preferred update method:  the frontend will send new task item with updated changes 
 expecting the backend to find the task and replace it with new one
 */

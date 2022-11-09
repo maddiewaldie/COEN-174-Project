@@ -15,3 +15,113 @@ $ mysql -u USERNAME --password=PASSWORD DATABASE < sql/create_task_table.sql
 ```
 $ php -S localhost:<port number>
 ```
+
+---
+
+## Endpoint Body Guide
+
+- This documentation is to give frontend a good idea of the JSON body that should be passed to different endpoint functions
+- Legend
+	- Replace `DATE` with an appropriate date value
+	- Replace `INT` with an appropriate integer value
+	- Replace `STRING` with an appropriate string value
+	- If a line starts with `OPTIONAL`, it means that the value declared there is optional
+
+### `create_account`
+
+```JSON
+{
+	"type": "create_account",
+	"name": STRING,
+	"password": STRING
+}
+```
+
+- Create an account with the following credentials:
+	- name = value of field `name`
+	- password = value of field `password`
+
+### `create_task`
+
+```JSON
+{
+	"type": "create_task",
+	"account_id": INT
+	"tasks_name": STRING,
+	"category": STRING,
+	"deadline": DATE,
+	"priority": INT
+}
+```
+
+- Create a task with the following values:
+	- account_id = value of field `account_id`
+	- tasks_name = value of field `tasks_name`
+	- category = value of field `category`
+	- deadline = value of field `deadline`
+	- priority = value of field `priority`
+
+### `delete_account`
+
+```JSON
+{
+	"type": "delete_account",
+	"id": INT
+}
+```
+
+- Delete the account in the database where:
+	- id = value of field `id`
+- (This also deletes all of this user's tasks)
+
+### `delete_task`
+
+```JSON
+{
+	"type": "delete_task",
+	"task_id": INT
+}
+```
+
+- Delete the task in the database where:
+	- task_id = value of field `task_id`
+
+### `update_account`
+
+- One or more of the `OPTIONAL` fields must be included
+
+```JSON
+{
+	"type": "update_account",
+	"id": INT,
+	OPTIONAL "name": STRING,
+	OPTIONAL "password": STRING
+}
+```
+
+- Update the account of the user identified by id = value of field `id`
+	- Update this user's username to the value of field `name`
+	- Update this user's password to the value of field `password`
+
+### `update_task`
+
+- One or more of the `OPTIONAL` fields must be included
+
+```JSON
+{
+	"type": "update_task",
+	"task_id": INT,
+	OPTIONAL "account_id": INT,
+	OPTIONAL "tasks_name": STRING,
+	OPTIONAL "category": STRING,
+	OPTIONAL "deadline": DATE,
+	OPTIONAL "priority": INT,
+}
+```
+
+- Update the task identified by task_id = value of field `task_id`
+	- Update this task's account_id to the value of field `account_id`
+	- Update this task's tasks_name to the value of field `tasks_name`
+	- Update this task's category to the value of field `category`
+	- Update this task's deadline to the value of field `deadline`
+	- Update this task's priority to the value of field `priority`
