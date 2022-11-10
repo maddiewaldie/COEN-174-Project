@@ -1,19 +1,6 @@
 /**Task-related options  */
 
-/*  preferred update method:  the frontend will send new task item with updated changes 
-expecting the backend to find the task and replace it with new one
-*/
-function updateTasks (taskItem) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'update_task', taskItem})
-    };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
-    
-}
-
-/* update method as requested by backend */
+/* current request format for testing purposes */
 function updateTask (taskItem) {
     const requestOptions = {
         method: 'POST',
@@ -32,6 +19,7 @@ function deleteTask (taskItem) {
     };
     fetch('https://localhost:8080/endpoint.php', requestOptions);
 }
+
 
 function getTask (user) {
     const requestOptions = {
@@ -53,4 +41,36 @@ function createTask (taskItem) {
 
 }
 
+/*  NEW request format that will be used eventually 
+*/
+
+/*function updateTask (taskItem) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({type:'update_task', taskItem})
+    };
+    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    
+}*/
+
+/*function deleteTask (taskItem) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({type:'delete_task', taskItem})
+    };
+    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    
+}*/
+
+/*function getTask (user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({type:'get_task_from_user_id', user})
+    };
+    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    
+}*/
 

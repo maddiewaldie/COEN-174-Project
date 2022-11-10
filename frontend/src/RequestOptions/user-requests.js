@@ -1,18 +1,8 @@
-/*  preferred update method:  only one function needed for frontend to send new user account object with updated changes 
-expecting the backend to find the user account object and replace it with new one
-*/
+/**User-related options  */
 
-function updateUser (user) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'update_account', user})
-    };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
-    
-}
+/* current request format for testing purposes */
 
-/* update methods below as requested by backend */
+
 function updateUsername (user) {
     const requestOptions = {
         method: 'POST',
@@ -61,3 +51,36 @@ function createUser (user) {
     fetch('https://localhost:8080/endpoint.php', requestOptions);
 
 }
+
+/* NEW request format that will be used eventually */ 
+
+/*
+function updateUser (user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({type:'update_account', user})
+    };
+    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    
+}*/
+
+/*function deleteUser (user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({type:'delete_account', user})
+    };
+    fetch('https://localhost:8080/endpoint.php', requestOptions);
+}*/
+
+/*function getUser (user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({type:'get_user_id', username: user})
+    };
+    fetch('https://localhost:8080/endpoint.php', requestOptions);
+
+}*/
+
