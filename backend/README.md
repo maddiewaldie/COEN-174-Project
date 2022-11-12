@@ -18,7 +18,33 @@ $ php -S localhost:<port number>
 
 ---
 
-## Endpoint Body Guide
+## Documentation
+
+### Database Schema
+
+The SQL database consists of the following tables:
+
+#### Accounts
+
+| Field    | Type             | Null | Key | Default | Extra          |
+|----------|------------------|------|-----|---------|----------------|
+| account_id       | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| username     | varchar(256)     | NO   | UNI | NULL    |                |
+| password | varchar(32)      | NO   |     | NULL    |                |
+
+#### Tasks
+
+| Field      | Type             | Null | Key | Default | Extra          |
+|------------|------------------|------|-----|---------|----------------|
+| task_id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| account_id | int(10) unsigned | NO   | MUL | NULL    |                |
+| task_name | varchar(256)     | NO   |     | NULL    |                |
+| category   | varchar(256)     | NO   |     | NULL    |                |
+| deadline   | date             | NO   |     | NULL    |                |
+| priority   | varchar(32)          | NO   |     | NULL    |               |
+| completed   | tinyint(1)          | NO   |     | 0    |               |
+
+### Endpoint Body Guide
 
 - This documentation is to give frontend a good idea of the JSON body that should be passed to different endpoint functions
 - Legend
