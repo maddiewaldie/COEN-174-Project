@@ -7,12 +7,12 @@ function get_user_id($json_hash) {
 	$valid = true; //set to false if required fields are not passed
 	$queries = [];
 
-	$name = "";
+	$username = "";
 	$password = "";
 
 	// list of fields that must not be null
-	$field = [
-		"name",
+	$fields = [
+		"username",
 		"password"
 	];
 
@@ -28,11 +28,11 @@ function get_user_id($json_hash) {
 		return;
 	}
 
-	$name     = mysqli_real_escape_string($db, $json_hash['name']);
+	$username     = mysqli_real_escape_string($db, $json_hash['username']);
 	$password = mysqli_real_escape_string($db, $json_hash['password']);
 
 	// Create queries
-	array_push($queries, "SELECT id FROM Accounts WHERE name = '$name' AND password = '$password'");
+	array_push($queries, "SELECT account_id FROM Accounts WHERE username = '$username' AND password = '$password'");
 
 	return $queries;
 }
@@ -45,7 +45,7 @@ function get_tasks_from_user_id($json_hash) {
 	$account_id = "";
 
 	// list of fields that must not be null
-	$field = [
+	$fields = [
 		"account_id"
 	];
 

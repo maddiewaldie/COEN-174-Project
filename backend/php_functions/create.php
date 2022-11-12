@@ -6,13 +6,13 @@ include 'config.php';
 function create_account($json_hash) {
 	GLOBAL $db;
 	$valid = true; //set to false if new account cannot be added
-	$name = "";
+	$username = "";
 	$password = "";
 	$queries = [];
 
 	// list of fields that must not be null
 	$fields = [
-		"name",
+		"username",
 		"password"
 	];
 
@@ -28,12 +28,12 @@ function create_account($json_hash) {
 		return;
 	}
 
-	$name = mysqli_real_escape_string($db, $json_hash['name']);
+	$username = mysqli_real_escape_string($db, $json_hash['username']);
 	$password = mysqli_real_escape_string($db, $json_hash['password']);
 
 	array_push(
 		$queries,
-		"INSERT INTO Accounts(name,password) VALUES('$name', '$password')" 
+		"INSERT INTO Accounts(username,password) VALUES('$username', '$password')" 
 	);
 
 	return $queries;
@@ -43,7 +43,7 @@ function create_task($json_hash){
 	GLOBAL $db;
 	$valid = true;
 	$account_id = "";
-	$tasks_name = "";
+	$task_name = "";
 	$category = "";
 	$deadline = "";
 	$priority = "";
@@ -52,7 +52,7 @@ function create_task($json_hash){
 	// list of fields that must not be null
 	$fields = [
 		"account_id",
-		"tasks_name",
+		"task_name",
 		"category",
 		"deadline",
 		"priority"
@@ -71,14 +71,14 @@ function create_task($json_hash){
 	}
 		
 	$account_id = mysqli_real_escape_string($db, $json_hash['account_id']);
-	$tasks_name = mysqli_real_escape_string($db, $json_hash['tasks_name']);
+	$task_name = mysqli_real_escape_string($db, $json_hash['task_name']);
 	$category = mysqli_real_escape_string($db, $json_hash['category']);
 	$deadline = mysqli_real_escape_string($db, $json_hash['deadline']);
 	$priority = mysqli_real_escape_string($db, $json_hash['priority']);
 
 	array_push(
 		$queries,
-		"INSERT INTO Tasks(account_id, tasks_name,category,deadline,priority) Values('$account_id','$tasks_name', '$category', '$deadline', '$priority')" //TODO cleanup redundancy with $fields loop
+		"INSERT INTO Tasks(account_id, task_name,category,deadline,priority) Values('$account_id','$task_name', '$category', '$deadline', '$priority')" //TODO cleanup redundancy with $fields loop
 	);
 
 	return $queries;

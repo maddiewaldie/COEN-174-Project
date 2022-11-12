@@ -48,6 +48,8 @@ The SQL database consists of the following tables:
 
 - This documentation is to give frontend a good idea of the JSON body that should be passed to different endpoint functions
 - Legend
+	- Replace `BOOL` with an approrpiate boolean value
+		- **Important**: this should be an integer value (0 -> false, 1 -> true)
 	- Replace `DATE` with an appropriate date value
 	- Replace `INT` with an appropriate integer value
 	- Replace `STRING` with an appropriate string value
@@ -59,14 +61,14 @@ The SQL database consists of the following tables:
 {
 	"type": "create_account",
 	"params": {
-		"name": STRING,
+		"username": STRING,
 		"password": STRING
 	}
 }
 ```
 
 - Create an account with the following credentials:
-	- name = value of field `name`
+	- username = value of field `username`
 	- password = value of field `password`
 
 ### `create_task`
@@ -76,10 +78,10 @@ The SQL database consists of the following tables:
 	"type": "create_task",
 	"params": {
 		"account_id": INT
-		"tasks_name": STRING,
+		"task_name": STRING,
 		"category": STRING,
 		"deadline": DATE,
-		"priority": INT
+		"priority": STRING
 	}
 }
 ```
@@ -97,13 +99,13 @@ The SQL database consists of the following tables:
 {
 	"type": "delete_account",
 	"params": {
-		"id": INT
+		"account_id": INT
 	}
 }
 ```
 
 - Delete the account in the database where:
-	- id = value of field `id`
+	- account_id = value of field `account_id`
 - (This also deletes all of this user's tasks)
 
 ### `delete_task`
@@ -139,13 +141,13 @@ The SQL database consists of the following tables:
 {
 	"type": "get_user_id",
 	"params": {
-		"name": STRING,
+		"username": STRING,
 		"password": STRING
 	}
 }
 ```
 
-- Return a JSON containing the id corresponding to the account whose name = value of field `name` AND whose password = value of field `password`
+- Return a JSON containing the id corresponding to the account whose username = value of field `username` AND whose password = value of field `password`
 
 ### `update_account`
 
@@ -155,15 +157,15 @@ The SQL database consists of the following tables:
 {
 	"type": "update_account",
 	"params": {
-		"id": INT,
-		OPTIONAL "name": STRING,
+		"account_id": INT,
+		OPTIONAL "username": STRING,
 		OPTIONAL "password": STRING
 	}
 }
 ```
 
-- Update the account of the user identified by id = value of field `id`
-	- Update this user's username to the value of field `name`
+- Update the account of the user identified by account_id = value of field `account_id`
+	- Update this user's username to the value of field `username`
 	- Update this user's password to the value of field `password`
 
 ### `update_task`
@@ -176,10 +178,11 @@ The SQL database consists of the following tables:
 	"params": {
 		"task_id": INT,
 		OPTIONAL "account_id": INT,
-		OPTIONAL "tasks_name": STRING,
+		OPTIONAL "task_name": STRING,
 		OPTIONAL "category": STRING,
 		OPTIONAL "deadline": DATE,
-		OPTIONAL "priority": INT,
+		OPTIONAL "priority": STRING,
+		OPTIONAL "completed": BOOL
 	}
 }
 ```
@@ -190,3 +193,4 @@ The SQL database consists of the following tables:
 	- Update this task's category to the value of field `category`
 	- Update this task's deadline to the value of field `deadline`
 	- Update this task's priority to the value of field `priority`
+	- Update this task's completed to the value of field `completed`

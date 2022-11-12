@@ -8,7 +8,7 @@ MARK_IDS="$(echo "$IDS" | sed '4p;d')"
 TINO_IDS="$(echo "$IDS" | sed '5p;d')"
 
 # Create tasks for each group member
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0][0] | tr -d '"')"'","tasks_name":"task_1_changed"}}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0][0] | tr -d '"')"'","task_name":"task_1_changed"}}' http://localhost:8000/endpoint.php
 echo
 
 curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_task","params":{"task_id":"'"$(echo "$LOUIE_IDS" | jq .[0][0] | tr -d '"')"'","category":"test_changed"}}' http://localhost:8000/endpoint.php
@@ -17,5 +17,5 @@ echo
 curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_task","params":{"task_id":"'"$(echo "$MADDIE_IDS" | jq .[0][0] | tr -d '"')"'","deadline":"2023-01-01"}}' http://localhost:8000/endpoint.php
 echo
 
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0][0] | tr -d '"')"'","priority":"4"}}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"update_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0][0] | tr -d '"')"'","priority":"high","completed":"1"}}' http://localhost:8000/endpoint.php
 echo
