@@ -10,6 +10,7 @@ include 'php_functions/update.php';
 $queries;
 $return_response = false; //set to true if get request
 $res = ""; //hold responses
+$res_hash = [];
 $responses = [];
 $body = json_decode(file_get_contents('php://input'), true);
 
@@ -54,21 +55,21 @@ if(gettype($queries) != "array") {
 
 // Attempt to execute query(s) on database
 foreach($queries as $q) {
+	$res_hash["query"] = $q;
 	if($res = mysqli_query($db, $q)) {
-		if(!$return_response) print "Query \"$q\" succeeded<br>";
-		array_push($responses, mysqli_fetch_all($res));
+		//if(!$return_response) print "Query \"$q\" succeeded<br>";
+		$res_hash["success"] = 1;
+		if($return_response) $res_hash["get"] = mysqli_fetch_all($res);
 	}
 	else {
-		print "Error: Query \"$q\" failed: " . mysqli_error($db) . "<br>";
+		//print "Error: Query \"$q\" failed: " . mysqli_error($db) . "<br>";
+		$res_hash["success"] = 0;
 		exit(1);
 	}
+	array_push($responses, $res_hash);
 }
 
-if($return_response) {
-	foreach($responses as $r) {
-		print json_encode($r);
-	}
-}
+print json_encode($responses);
 
 mysqli_close($db);
 
