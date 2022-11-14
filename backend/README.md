@@ -18,10 +18,38 @@ $ php -S localhost:<port number>
 
 ---
 
-## Endpoint Body Guide
+## Documentation
+
+### Database Schema
+
+The SQL database consists of the following tables:
+
+#### Accounts
+
+| Field    | Type             | Null | Key | Default | Extra          |
+|----------|------------------|------|-----|---------|----------------|
+| account_id       | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| username     | varchar(256)     | NO   | UNI | NULL    |                |
+| password | varchar(32)      | NO   |     | NULL    |                |
+
+#### Tasks
+
+| Field      | Type             | Null | Key | Default | Extra          |
+|------------|------------------|------|-----|---------|----------------|
+| task_id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| account_id | int(10) unsigned | NO   | MUL | NULL    |                |
+| task_name | varchar(256)     | NO   |     | NULL    |                |
+| category   | varchar(256)     | NO   |     | NULL    |                |
+| deadline   | date             | NO   |     | NULL    |                |
+| priority   | varchar(32)          | NO   |     | NULL    |               |
+| completed   | tinyint(1)          | NO   |     | 0    |               |
+
+### Endpoint Body Guide
 
 - This documentation is to give frontend a good idea of the JSON body that should be passed to different endpoint functions
 - Legend
+	- Replace `BOOL` with an approrpiate boolean value
+		- **Important**: this should be an integer value (0 -> false, 1 -> true)
 	- Replace `DATE` with an appropriate date value
 	- Replace `INT` with an appropriate integer value
 	- Replace `STRING` with an appropriate string value
@@ -32,13 +60,15 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "create_account",
-	"name": STRING,
-	"password": STRING
+	"params": {
+		"username": STRING,
+		"password": STRING
+	}
 }
 ```
 
 - Create an account with the following credentials:
-	- name = value of field `name`
+	- username = value of field `username`
 	- password = value of field `password`
 
 ### `create_task`
@@ -46,11 +76,13 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "create_task",
-	"account_id": INT
-	"tasks_name": STRING,
-	"category": STRING,
-	"deadline": DATE,
-	"priority": INT
+	"params": {
+		"account_id": INT
+		"task_name": STRING,
+		"category": STRING,
+		"deadline": DATE,
+		"priority": STRING
+	}
 }
 ```
 
@@ -66,12 +98,14 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "delete_account",
-	"id": INT
+	"params": {
+		"account_id": INT
+	}
 }
 ```
 
 - Delete the account in the database where:
-	- id = value of field `id`
+	- account_id = value of field `account_id`
 - (This also deletes all of this user's tasks)
 
 ### `delete_task`
@@ -79,7 +113,9 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "delete_task",
-	"task_id": INT
+	"params": {
+		"task_id": INT
+	}
 }
 ```
 
@@ -91,7 +127,9 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "get_tasks_from_user_id",
-	"account_id": INT
+	"params": {
+		"account_id": INT
+	}
 }
 ```
 
@@ -102,12 +140,14 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "get_user_id",
-	"name": STRING,
-	"password": STRING
+	"params": {
+		"username": STRING,
+		"password": STRING
+	}
 }
 ```
 
-- Return a JSON containing the id corresponding to the account whose name = value of field `name` AND whose password = value of field `password`
+- Return a JSON containing the id corresponding to the account whose username = value of field `username` AND whose password = value of field `password`
 
 ### `update_account`
 
@@ -116,14 +156,16 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "update_account",
-	"id": INT,
-	OPTIONAL "name": STRING,
-	OPTIONAL "password": STRING
+	"params": {
+		"account_id": INT,
+		OPTIONAL "username": STRING,
+		OPTIONAL "password": STRING
+	}
 }
 ```
 
-- Update the account of the user identified by id = value of field `id`
-	- Update this user's username to the value of field `name`
+- Update the account of the user identified by account_id = value of field `account_id`
+	- Update this user's username to the value of field `username`
 	- Update this user's password to the value of field `password`
 
 ### `update_task`
@@ -133,12 +175,15 @@ $ php -S localhost:<port number>
 ```JSON
 {
 	"type": "update_task",
-	"task_id": INT,
-	OPTIONAL "account_id": INT,
-	OPTIONAL "tasks_name": STRING,
-	OPTIONAL "category": STRING,
-	OPTIONAL "deadline": DATE,
-	OPTIONAL "priority": INT,
+	"params": {
+		"task_id": INT,
+		OPTIONAL "account_id": INT,
+		OPTIONAL "task_name": STRING,
+		OPTIONAL "category": STRING,
+		OPTIONAL "deadline": DATE,
+		OPTIONAL "priority": STRING,
+		OPTIONAL "completed": BOOL
+	}
 }
 ```
 
@@ -148,3 +193,4 @@ $ php -S localhost:<port number>
 	- Update this task's category to the value of field `category`
 	- Update this task's deadline to the value of field `deadline`
 	- Update this task's priority to the value of field `priority`
+	- Update this task's completed to the value of field `completed`

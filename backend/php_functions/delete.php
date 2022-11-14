@@ -4,20 +4,20 @@ include "config.php";
 
 function delete_account($json_hash) {
 	GLOBAL $db;
-	$id = "";
+	$account_id = "";
 	$queries = [];
 
-	// Quit out if id is not passed
-	if(!$json_hash['id']) {
-		print "Error: Missing id for deletion<br>";
+	// Quit out if account_id is not passed
+	if(!$json_hash['account_id']) {
+		print "Error: Missing account_id for deletion<br>";
 		return "";
 	}
 
-	$id = mysqli_real_escape_string($db, $json_hash['id']);
+	$account_id = mysqli_real_escape_string($db, $json_hash['account_id']);
 
 	// Create queries
-	array_push($queries, "DELETE FROM Tasks WHERE account_id = '$id'"); //delete all the tasks this account had created
-	array_push($queries, "DELETE FROM Accounts WHERE id = '$id'");
+	array_push($queries, "DELETE FROM Tasks WHERE account_id = '$account_id'"); //delete all the tasks this account had created
+	array_push($queries, "DELETE FROM Accounts WHERE account_id = '$account_id'");
 
 	return $queries;
 }

@@ -16,30 +16,30 @@ $body = json_decode(file_get_contents('php://input'), true);
 // Get query based off request type
 switch($body['type']) {
 	case "create_account":
-		$queries = create_account($body);
+		$queries = create_account($body['params']);
 		break;
 	case "create_task":
-		$queries = create_task($body);
+		$queries = create_task($body['params']);
 		break;
 	case "delete_account":
-		$queries = delete_account($body);
+		$queries = delete_account($body['params']);
 		break;
 	case "delete_task":
-		$queries = delete_task($body);
+		$queries = delete_task($body['params']);
 		break;
 	case "get_tasks_from_user_id":
-		$queries = get_tasks_from_user_id($body);
+		$queries = get_tasks_from_user_id($body['params']);
 		$return_response = true;
 		break;
 	case "get_user_id":
-		$queries = get_user_id($body);
+		$queries = get_user_id($body['params']);
 		$return_response = true;
 		break;
 	case "update_account":
-		$queries = update_account($body);
+		$queries = update_account($body['params']);
 		break;
 	case "update_task":
-		$queries = update_task($body);
+		$queries = update_task($body['params']);
 		break;
 	default:
 		print "Error: Unknown request type \"" . $body['type'] . "\"<br>";

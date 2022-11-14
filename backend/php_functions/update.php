@@ -10,13 +10,13 @@ function update_account($json_hash) {
 
 	// list of fields (excluding id)
 	$fields = [
-		"name",
+		"username",
 		"password"
 	];
 
 	// Quit out if id is not passed
-	if(!$json_hash['id']) {
-		print "Error: Missing id to update<br>";
+	if(!$json_hash['account_id']) {
+		print "Error: Missing account_id to update<br>";
 		return "";
 	}
 
@@ -41,7 +41,7 @@ function update_account($json_hash) {
 		}
 	}
 	$update_query = rtrim($update_query, ","); //remove trailing comma
-	$update_query .= " WHERE id = " . $json_hash['id'];
+	$update_query .= " WHERE account_id = " . $json_hash['account_id'];
 
 	// Push query
 	array_push($queries, $update_query);
@@ -58,10 +58,11 @@ function update_task($json_hash) {
 	// list of fields (excluding task_id)
 	$fields = [
 		"account_id",
-		"tasks_name",
+		"task_name",
 		"category",
 		"deadline",
-		"priority"
+		"priority",
+		"completed"
 	];
 
 
