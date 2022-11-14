@@ -78,7 +78,8 @@ The SQL database consists of the following tables:
 [
 	{
 		"query": "INSERT INTO Accounts(username,password) VALUES('USERNAME', 'PASSWORD')",
-		"success": BOOL
+		"success": BOOL,
+		"id": INT
 	}
 ]
 ```
@@ -114,7 +115,8 @@ The SQL database consists of the following tables:
 [
 	{
 		"query": "INSERT INTO Tasks(account_id, task_name, category, deadline, priority) Values('ACCOUNT_ID', 'TASK_NAME', 'CATEGORY', 'DEADLINE', 'PRIORITY')",
-		"success": BOOL
+		"success": BOOL,
+		"id": INT
 	}
 ]
 ```
