@@ -32,12 +32,11 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
   const [deadline, setDeadline] = React.useState(dayjs('2022-10-31'));
  
   
-  let arr = [];
-  let taskarr= [];
   // task object 
   const [task, setTask] = React.useState({
-    taskID: 0,
-    name: "",
+    account_id: "",
+    task_id: 0,
+    task_name: "",
     tags: "",
     priority: "",
     deadline: dayjs('2022-10-31'),
@@ -59,10 +58,11 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
     setOpen(false);
     
     setTaskID(taskID + 1);
-
+    const accountID = JSON.parse(localStorage.getItem("user") || "{}").id; //assuming id 
     setTask({
-      taskID: taskID,
-      name: name,
+      account_id: accountID,
+      task_id: taskID,
+      task_name: name,
       tags: tags,
       priority: priority,
       deadline: deadline,
@@ -70,12 +70,15 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
     })
    
     //setCompleted(false);
-    let tempTask = { taskID: taskID,
-      name: name,
+    let tempTask = { 
+      account_id: accountID,
+      task_id: taskID,
+      task_name: name,
       tags: tags,
       priority: priority,
       deadline: deadline,
-      completed: completed}
+      completed: completed
+    }
 
     const tasksArr = [...taskItems];
     tasksArr.push(tempTask); 

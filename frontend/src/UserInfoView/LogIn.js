@@ -16,6 +16,7 @@ import { Link as Linker} from 'react-router-dom'
 
 const LoginPage = () => {
     const [user, setUser] = useState ({
+      account_id: "",
       username: "",
       password: "",
     });
