@@ -77,14 +77,20 @@ The SQL database consists of the following tables:
 ```JSON
 [
 	{
-		"query": "INSERT INTO Accounts(username,password) VALUES('USERNAME', 'PASSWORD')",
-		"success": BOOL
+		"query": "INSERT INTO Accounts(username,password) VALUES('USERNAME', 'PASSWORD') RETURNING account_id",
+		"success": BOOL,
+		"get": [
+			[
+				ACCOUNT_ID
+			]
+		]
 	}
 ]
 ```
 
 - `USERNAME` is replaced with the value of field `username`
 - `PASSWORD` is replaced with the value of field `password`
+- `ACCOUNT_ID` is replaced with the account id of the newly created user
 
 ### `create_task`
 
@@ -113,8 +119,13 @@ The SQL database consists of the following tables:
 ```JSON
 [
 	{
-		"query": "INSERT INTO Tasks(account_id, task_name, category, deadline, priority) Values('ACCOUNT_ID', 'TASK_NAME', 'CATEGORY', 'DEADLINE', 'PRIORITY')",
-		"success": BOOL
+		"query": "INSERT INTO Tasks(account_id, task_name, category, deadline, priority) Values('ACCOUNT_ID', 'TASK_NAME', 'CATEGORY', 'DEADLINE', 'PRIORITY') RETURNING task_id",
+		"success": BOOL,
+		"get": [
+			[
+				TASK_ID
+			]
+		]
 	}
 ]
 ```
@@ -124,6 +135,7 @@ The SQL database consists of the following tables:
 - `CATEGORY` is replaced with the value of field `category`
 - `DEADLINE` is replaced with the value of field `deadline`
 - `PRIORITY` is replaced with the value of field `priority`
+- `TASK_ID` is replaced with the returned task id value
 
 ### `delete_account`
 

@@ -18,9 +18,11 @@ $body = json_decode(file_get_contents('php://input'), true);
 switch($body['type']) {
 	case "create_account":
 		$queries = create_account($body['params']);
+		$return_response = true;
 		break;
 	case "create_task":
 		$queries = create_task($body['params']);
+		$return_response = true;
 		break;
 	case "delete_account":
 		$queries = delete_account($body['params']);

@@ -33,7 +33,7 @@ function create_account($json_hash) {
 
 	array_push(
 		$queries,
-		"INSERT INTO Accounts(username,password) VALUES('$username', '$password')" 
+		"INSERT INTO Accounts(username,password) VALUES('$username', '$password') RETURNING account_id" 
 	);
 
 	return $queries;
@@ -78,7 +78,7 @@ function create_task($json_hash){
 
 	array_push(
 		$queries,
-		"INSERT INTO Tasks(account_id, task_name,category,deadline,priority) Values('$account_id','$task_name', '$category', '$deadline', '$priority')" //TODO cleanup redundancy with $fields loop
+		"INSERT INTO Tasks(account_id, task_name,category,deadline,priority) Values('$account_id','$task_name', '$category', '$deadline', '$priority') RETURNING task_id"
 	);
 
 	return $queries;
