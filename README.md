@@ -9,7 +9,7 @@
 This project has the following dependenies:
 
 - `git` <!-- git -->
-- `mysql` <!-- mariadb-server -->
+- `mariadb-server` <!-- mariadb-server -->
 - `npm` <!-- npm -->
 - `php` <!-- php, php-db, php-mysql -->
 
@@ -25,8 +25,8 @@ The following instructions can be used to locally deploy this project.
 
 ### Backend
 
-- Set MySQL credentials in `backend/config.php`
-- Run the following to create tables in the MySQL database
+- Set MariaDB credentials in `backend/config.php`
+- Run the following to create tables in the MariaDB database
 	- Replace `USERNAME`, `PASSWORD`, and `DATABASE` with the appropriate values
 
 ```
