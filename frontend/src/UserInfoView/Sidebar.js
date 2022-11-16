@@ -10,8 +10,15 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import Link from '@mui/material/Link';
 
 export default function Sidebar() {
+  
+  const icons = [<HomeIcon/>, <ListAltIcon/>, <TrendingUpIcon/> ]
   const [state, setState] = React.useState({
     left: false,
   });
@@ -36,7 +43,8 @@ export default function Sidebar() {
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {icons[index]}
+                
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -45,11 +53,13 @@ export default function Sidebar() {
       </List>
       <Divider />
       <List>
-        {['Sign Out'].map((text, index) => (
+        {['Sign Out'].map((text) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              >
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <LogoutIcon />
+                
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -63,7 +73,7 @@ export default function Sidebar() {
     <div>
       {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Button onClick={toggleDrawer(anchor, true)}> Menu </Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

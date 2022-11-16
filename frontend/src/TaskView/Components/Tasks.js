@@ -16,10 +16,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+
 /** 
  * TASK DIALOG COMPONENT  
  * **/
-const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
+const Tasks = ({taskItems, setTaskItems}) => {
   
   // for task dialog pop-up
   const [open, setOpen] = React.useState(false);
@@ -30,11 +31,11 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
   const [tags, setTags] = React.useState("");
   const [priority, setPriority] = React.useState("");
   const [deadline, setDeadline] = React.useState(dayjs('2022-10-31'));
- 
-  
+  const [accountID, setAccountID] = React.useState(0);
+  const [completed, setCompleted] = React.useState(false);
   // task object 
   const [task, setTask] = React.useState({
-    account_id: "",
+    account_id: 1,
     task_id: 0,
     task_name: "",
     tags: "",
@@ -58,7 +59,8 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
     setOpen(false);
     
     setTaskID(taskID + 1);
-    const accountID = JSON.parse(localStorage.getItem("user") || "{}").id; //assuming id 
+    setAccountID(accountID + 1);
+    //const accountID = JSON.parse(localStorage.getItem("user") || "{}").id; //assuming id 
     setTask({
       account_id: accountID,
       task_id: taskID,
@@ -68,7 +70,12 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
       deadline: deadline,
       completed: completed
     })
-   
+  
+    /*React.useEffect(() => {
+        createTask(task);
+    }, []);*/
+
+
     //setCompleted(false);
     let tempTask = { 
       account_id: accountID,
@@ -80,13 +87,20 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
       completed: completed
     }
 
+    //let tempTask={};
+
+   /* React.useEffect(() => {
+        getTask(user);
+    }, [tempTask]);*/
+
+
     const tasksArr = [...taskItems];
     tasksArr.push(tempTask); 
     setTaskItems(tasksArr);
     sessionStorage.setItem("taskObject", JSON.stringify(tasksArr));
 
-  };
-  React.useEffect(() => {
+  
+  /*React.useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/todos', {
       method: 'POST',
       body: JSON.stringify(task),
@@ -98,8 +112,10 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
     .then(json => {
       console.log(json);
     });
-  },[task]);
+  },[task]);*/
+
   
+}
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -202,5 +218,6 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
 }
 
 export default Tasks;
+
 
 

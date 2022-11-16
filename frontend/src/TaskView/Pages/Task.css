@@ -1,22 +1,33 @@
 .main{
     display: flex;
     justify-content: space-evenly;
-    padding-left: 40px;
+    padding-left: 10px;
     
 }
-
-#todosSection{
+section.mainContainer{
     display: flex;
-    flex-direction: column;
-    padding-top: 8px;
-    width: 300px;
-
-    
+    flex-direction: row;
+    padding-left: 150px;
 }
-#Calendar {
+section.todos{
     display: flex;
     flex-direction: column;
-    padding-left: 20px;
+    padding-top: 50px;
+    padding-left: 150px;
+    padding-right: 60px;  
+}
+
+#sidebar {
+    display: flex;
+    padding-right: 10px;
+}
+section.Calendar {
+    display: flex;
+    flex-direction: column;
+    padding-right: 300px;
+    margin-left: auto;
+    padding-top: 50px;
+    padding-left: 180px;
 }
 #headerContainer{
     font-size: 30px;
