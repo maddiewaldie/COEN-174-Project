@@ -9,7 +9,7 @@
 This project has the following dependenies:
 
 - `git` <!-- git -->
-- `mariadb-server` <!-- mariadb-server -->
+- `mariadb-server` >= 10.5.0 <!-- mariadb-server -->
 - `npm` <!-- npm -->
 - `php` <!-- php, php-db, php-mysql -->
 
