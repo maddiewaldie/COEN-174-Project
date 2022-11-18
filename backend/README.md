@@ -47,6 +47,7 @@ The SQL database consists of the following tables:
 ### Endpoint Body Guide
 
 - This documentation is to give frontend a good idea of the JSON body that should be passed to different endpoint functions
+- All frontend functions will return a JSON, whose format is also documented
 - Legend
 	- Replace `BOOL` with an approrpiate boolean value
 		- **Important**: this should be an integer value (0 -> false, 1 -> true)
@@ -71,6 +72,21 @@ The SQL database consists of the following tables:
 	- username = value of field `username`
 	- password = value of field `password`
 
+#### return object
+
+```JSON
+[
+	{
+		"query": "INSERT INTO Accounts(username,password) VALUES('USERNAME', 'PASSWORD')",
+		"success": BOOL,
+		"id": INT
+	}
+]
+```
+
+- `USERNAME` is replaced with the value of field `username`
+- `PASSWORD` is replaced with the value of field `password`
+
 ### `create_task`
 
 ```JSON
@@ -88,10 +104,28 @@ The SQL database consists of the following tables:
 
 - Create a task with the following values:
 	- account_id = value of field `account_id`
-	- tasks_name = value of field `tasks_name`
+	- task_name = value of field `task_name`
 	- category = value of field `category`
 	- deadline = value of field `deadline`
 	- priority = value of field `priority`
+
+#### return object
+
+```JSON
+[
+	{
+		"query": "INSERT INTO Tasks(account_id, task_name, category, deadline, priority) Values('ACCOUNT_ID', 'TASK_NAME', 'CATEGORY', 'DEADLINE', 'PRIORITY')",
+		"success": BOOL,
+		"id": INT
+	}
+]
+```
+
+- `ACCOUNT_ID` is replaced with the value of field `account_id`
+- `TASK_NAME` is replaced with the value of field `task_name`
+- `CATEGORY` is replaced with the value of field `category`
+- `DEADLINE` is replaced with the value of field `deadline`
+- `PRIORITY` is replaced with the value of field `priority`
 
 ### `delete_account`
 
@@ -108,6 +142,23 @@ The SQL database consists of the following tables:
 	- account_id = value of field `account_id`
 - (This also deletes all of this user's tasks)
 
+#### return object
+
+```JSON
+[
+	{
+		"query": "DELETE FROM Tasks WHERE account_id = ACCOUNT_ID",
+		"success": BOOL
+	},
+	{
+		"query": "DELETE FROM Accounts WHERE account_id = ACCOUNT_ID",
+		"success": BOOL
+	}
+]
+```
+
+- `ACCOUNT_ID` is replaced with the value of field `account_id`
+
 ### `delete_task`
 
 ```JSON
@@ -122,6 +173,19 @@ The SQL database consists of the following tables:
 - Delete the task in the database where:
 	- task_id = value of field `task_id`
 
+#### return object
+
+```JSON
+[
+	{
+		"query": "DELETE FROM Tasks WHERE task_id = TASK_ID",
+		"success": BOOL
+	}
+]
+```
+
+- `TASK_ID` is replaced with the value of field `task_id`
+
 ### `get_tasks_from_user_id`
 
 ```JSON
@@ -133,7 +197,26 @@ The SQL database consists of the following tables:
 }
 ```
 
-- Return a JSON containing all task_ids where account_id = value of field `account_id`
+#### return object
+
+```JSON
+[
+	{
+		"query": "SELECT task_id FROM Tasks WHERE account_id = ACCOUNT_ID",
+		"success": BOOL,
+		"get": [
+			[
+				TASK_ID
+			],
+			...
+		]
+	}
+]
+```
+
+- `ACCOUNT_ID` is replaced with the value of field `account_id`
+- `TASK_ID` is replaced with the returned task id value
+	- There will be 0 or more `TASK_ID`s returned
 
 ### `get_user_id`
 
@@ -147,7 +230,25 @@ The SQL database consists of the following tables:
 }
 ```
 
-- Return a JSON containing the id corresponding to the account whose username = value of field `username` AND whose password = value of field `password`
+#### return object
+
+```JSON
+[
+	{
+		"query": "SELECT account_id FROM Accounts WHERE username = USERNAME AND password = PASSWORD",
+		"success": BOOL,
+		"get": [
+			[
+				USER_ID
+			]
+		]
+	}
+]
+```
+
+- `USERNAME` is replaced with the value of field `username`
+- `PASSWORD` is replaced with the value of field `password`
+- `USER_ID` is replaced with the returned user id value
 
 ### `update_account`
 
@@ -167,6 +268,20 @@ The SQL database consists of the following tables:
 - Update the account of the user identified by account_id = value of field `account_id`
 	- Update this user's username to the value of field `username`
 	- Update this user's password to the value of field `password`
+
+#### return object
+
+```JSON
+[
+	{
+		"query": "UPDATE Accounts SET ... WHERE account_id = ACCOUNT_ID",
+		"success": BOOL
+	}
+]
+```
+
+- `...` is replaced by the included OPTIONALs
+- `ACCOUNT_ID` is replaced with the value of field `account_id`
 
 ### `update_task`
 
@@ -194,3 +309,17 @@ The SQL database consists of the following tables:
 	- Update this task's deadline to the value of field `deadline`
 	- Update this task's priority to the value of field `priority`
 	- Update this task's completed to the value of field `completed`
+
+#### return object
+
+```JSON
+[
+	{
+		"query": "UPDATE Tasks SET ... WHERE task_id = TASK_ID",
+		"success": BOOL
+	}
+]
+```
+
+- `...` is replaced by the included OPTIONALs
+- `TASK_ID` is replaced with the value of field `task_id`

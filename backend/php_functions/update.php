@@ -86,7 +86,6 @@ function update_task($json_hash) {
 
 	// Build query
 	$update_query .= "UPDATE Tasks SET";
-	print "$update_query<br>";
 	foreach($fields as $f) {
 		if(array_key_exists($f, $json_hash)) {
 			$json_hash[$f] = mysqli_real_escape_string($db, $json_hash[$f]);
