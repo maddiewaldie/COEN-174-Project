@@ -1,43 +1,65 @@
-/**Task-related options  */
-
-/* current request format for testing purposes */
-function updateTask (taskItem) {
+export async function updateTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({type:'update_task', task_id: taskItem.id, completed: taskItem.completed})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
+
     
 }
 
-function deleteTask (taskItem) {
+export async function deleteTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({type:'delete_task', task_id: taskItem.taskID})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 }
 
 
-function getTask (user) {
+export async function getTask (user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({type:'get_tasks_from_user_id', account_id: user.accountID})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 
 }
 
-function createTask (taskItem) {
+export async function createTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({type:'create_task', taskItem})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 
 }
 

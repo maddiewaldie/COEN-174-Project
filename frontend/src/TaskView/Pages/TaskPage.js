@@ -9,8 +9,8 @@ import Sidebar from '../../UserInfoView/Sidebar';
 
 const TaskPage = () => {
     const [taskItems, setTaskItems] = useState([]);
-    const [completed, setCompleted] = useState(false);
-  //  setCompleted(false);
+    
+  
     useEffect(()=>{
         const taskStorage = JSON.parse(sessionStorage.getItem("taskObject")) || [];
       //debugger
@@ -33,12 +33,10 @@ const TaskPage = () => {
                 <section id= "checklist">
                     <Todos taskItems={taskItems}
                            setTaskItems = {setTaskItems}
-                           completed = {completed}
-                           setCompleted = {setCompleted}/>
+                           />
                     <Tasks taskItems={taskItems}
                            setTaskItems = {setTaskItems}
-                           completed = {completed}
-                           setCompleted = {setCompleted}/>
+                           />
                     
                 </section>
             </section>

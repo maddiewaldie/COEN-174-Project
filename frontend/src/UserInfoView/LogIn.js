@@ -15,22 +15,24 @@ import Typography from '@mui/material/Typography';
 import { Link as Linker} from 'react-router-dom'
 
 const LoginPage = () => {
-    const [user, setUser] = useState ({
-      account_id: "",
-      username: "",
-      password: "",
-    });
-    console.log(user);
-
-   
-    const handleSubmit = (event) => {
+    //const account_id = localStorage.getItem("account_id") || 1;
+  
+    const handleSubmit = async (event) => {
       event.preventDefault();
       // do get request here
-      const data = new FormData(event.currentTarget);
-        console.log({
-          username: data.get('username'),
-          password: data.get('password'),
-        });
+      try {
+          const data = new FormData(event.currentTarget);
+          console.log({
+            username: data.get('username'),
+            password: data.get('password'),
+          });
+        const result = await getUser({username: data.get('username'), password: data.get('password')});
+        const account_id = result.id || 1;
+        localStorage.setItem("account_id", account_id);
+        //navigate 
+      } catch (e) {
+        console.log("error", e);
+      }
     }
    
       
