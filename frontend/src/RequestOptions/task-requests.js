@@ -5,7 +5,7 @@ export async function updateTask (taskItem) {
         body: JSON.stringify({type:'update_task', task_id: taskItem.id, completed: taskItem.completed})
     };
     try {
-        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        const response = await fetch('https://localhost:8000/endpoint.php', requestOptions);
         return response.json();
     } catch (err) {
         console.log("error", err);
@@ -22,7 +22,7 @@ export async function deleteTask (taskItem) {
         body: JSON.stringify({type:'delete_task', task_id: taskItem.taskID})
     };
     try {
-        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        const response = await fetch('https://localhost:8000/endpoint.php', requestOptions);
         return response.json();
     } catch (err) {
         console.log("error", err);
@@ -38,7 +38,7 @@ export async function getTask (user) {
         body: JSON.stringify({type:'get_tasks_from_user_id', account_id: user.accountID})
     };
     try {
-        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        const response = await fetch('https://localhost:8000/endpoint.php', requestOptions);
         return response.json();
     } catch (err) {
         console.log("error", err);
@@ -51,10 +51,13 @@ export async function createTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'create_task', taskItem})
+        body: JSON.stringify({"type":'create_task', "params": taskItem})
     };
     try {
-        const response = await fetch('https://localhost:8080/endpoint.php', requestOptions);
+        console.log("hi");
+        console.log(requestOptions);
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        console.log(response);
         return response.json();
     } catch (err) {
         console.log("error", err);

@@ -49,7 +49,7 @@ export async function getUser (user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'get_user_id', username: user.username, password: user.password})
+        body: JSON.stringify({"type":'get_user_id', "params":user})
     };
     try {
         const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);

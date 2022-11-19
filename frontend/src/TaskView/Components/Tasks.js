@@ -16,6 +16,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { createTask } from '../../RequestOptions/task-requests';
 
 /** 
  * TASK DIALOG COMPONENT  
@@ -26,11 +27,10 @@ const Tasks = ({taskItems, setTaskItems}) => {
   const [open, setOpen] = React.useState(false);
 
   // task items 
-  const [taskID, setTaskID] = React.useState(0);
   const [name, setName] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [priority, setPriority] = React.useState("");
-  const [deadline, setDeadline] = React.useState(dayjs('2022-10-31'));
+  const [deadline, setDeadline] = React.useState(dayjs('2022-10-31').format('YYYY-MM-DD').toString());
   const [accountID, setAccountID] = React.useState(0);
   const [completed, setCompleted] = React.useState(false);
   // task object 
@@ -40,7 +40,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
     task_name: "",
     category: "",
     priority: "",
-    deadline: dayjs('2022-10-31'),
+    deadline: dayjs('2022-10-31').format('YYYY-MM-DD').toString(),
     completed: false
   });
 
@@ -54,13 +54,33 @@ const Tasks = ({taskItems, setTaskItems}) => {
     event.preventDefault();
     setOpen(false);
   }
-  const handleClose = (event) => {
+  const handleClose = async (event) => {
     event.preventDefault();
     setOpen(false);
+    try {
+        // 1. CREATE the data on the backend (with a fetch)
     
-    setTaskID(taskID + 1);
-    setAccountID(accountID + 1);
-    //const accountID = JSON.parse(localStorage.getItem("account_id") || "{}") //assuming id 
+    const accountID = JSON.parse(localStorage.getItem("account_id")) || false; //assuming id 
+    console.log("accountID from handleClose", accountID);
+    console.log("deadline", deadline.toString());
+    console.log("completed", completed);
+    const result = await createTask({
+      "account_id": accountID,
+      "task_name" : name,
+      "category": category,
+      "priority": priority,
+      "deadline": deadline,
+      "completed": completed
+    })
+    
+
+    } catch (e) {
+      console.log("error", e);
+    }
+    if (result[0]) {
+      const taskID = result[0].id;
+    }
+    
     setTask({
       account_id: accountID,
       task_id: taskID,
@@ -70,10 +90,9 @@ const Tasks = ({taskItems, setTaskItems}) => {
       deadline: deadline,
       completed: completed
     })
-     // 1. CREATE the data on the backend (with a fetch)
-    /*React.useEffect(() => {
-        createTask(task);
-    }, []);*/
+   
+    
+   
 
 
     //setCompleted(false);
@@ -186,8 +205,8 @@ const Tasks = ({taskItems, setTaskItems}) => {
                 <DesktopDatePicker
                 label="Date desktop"
                 inputFormat="MM/DD/YYYY"
-                value={deadline}
-                onChange={(date) => setDeadline(date)}
+                value={deadline.toString()}
+                onChange={(date) => setDeadline(date.format('YYYY-MM-DD').toString())}
                 renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>

@@ -14,7 +14,7 @@ const TaskPage = () => {
     useEffect(()=>{
         const taskStorage = JSON.parse(sessionStorage.getItem("taskObject")) || [];
       //debugger
-        taskStorage.completed = setCompleted(false);
+        //taskStorage.completed = setCompleted(false);
         setTaskItems(taskStorage);
         
   

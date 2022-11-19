@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import backgroundImage from "../img/mountainImg.jpg";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import {getUser} from '../RequestOptions/user-requests'
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Link as Linker} from 'react-router-dom'
@@ -27,8 +28,13 @@ const LoginPage = () => {
             password: data.get('password'),
           });
         const result = await getUser({username: data.get('username'), password: data.get('password')});
-        const account_id = result.id || 1;
-        localStorage.setItem("account_id", account_id);
+        console.log("result: " , result);
+        if (result[0]){
+          const account_id = result[0].get[0][0];
+          //const account_id = result[0].id;
+          localStorage.setItem("account_id", account_id);
+          
+        }
         //navigate 
       } catch (e) {
         console.log("error", e);
