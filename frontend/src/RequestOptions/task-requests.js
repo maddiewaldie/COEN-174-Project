@@ -54,7 +54,6 @@ export async function createTask (taskItem) {
         body: JSON.stringify({"type":'create_task', "params": taskItem})
     };
     try {
-        console.log("hi");
         console.log(requestOptions);
         const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
         console.log(response);

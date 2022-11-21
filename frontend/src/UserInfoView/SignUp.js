@@ -39,22 +39,22 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       
-      console.log("submit");
+      
       if (username == '') setUserErr(true);
       if (password == '') setPassErr(true);
       if (username && password){
         try {
-          console.log("in here");
+          
           let result = await createUser({"username": username, "password": password}); 
           console.log(result);
-          console.log(account);
+          
           if (result[0]){
             account_id = result[0].id;
             console.log("account_id: ", account_id);
             // account_id = JSON.parse(result)[0].get[0] || 1;
-            console.log(account);
+           
             localStorage.setItem("account_id", account_id);
-            //accountID = JSON.parse(localStorage.getItem("user") || "{}").id
+           
             setAccount({
               account_id: account_id,
               username: username,
@@ -63,7 +63,7 @@ const SignUp = () => {
           }
           
           
-          console.log(account);
+          
         } catch(e){
           console.log("error", e);
         }

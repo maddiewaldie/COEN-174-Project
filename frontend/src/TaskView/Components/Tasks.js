@@ -62,8 +62,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
     
     const accountID = JSON.parse(localStorage.getItem("account_id")) || false; //assuming id 
     console.log("accountID from handleClose", accountID);
-    console.log("deadline", deadline.toString());
-    console.log("completed", completed);
+    
     const result = await createTask({
       "account_id": accountID,
       "task_name" : name,
