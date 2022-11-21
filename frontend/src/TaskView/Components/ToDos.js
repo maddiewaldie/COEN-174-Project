@@ -10,7 +10,8 @@ import Chip from '@mui/material/Chip';
 import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
 import Stack from '@mui/material/Stack';
 import Tasks from './Tasks';
-import {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react';
+import {updateTask, deleteTask} from '../../RequestOptions/task-requests';
 
 /** 
  * CHECKLIST COMPONENT  
@@ -18,7 +19,7 @@ import {useState, useEffect} from 'react'
 const Todos = ({taskItems,setTaskItems}) => {
   const [done, setDone] = useState([1]);
   const [tagColor, setTagColor] = useState("primary");
-  console.log(taskItems);
+  
   const toggle = (checked) => () => {
       // current index = 0 
       const currentIndex = done.indexOf(checked);
@@ -35,9 +36,7 @@ const Todos = ({taskItems,setTaskItems}) => {
       
   };
 
-  const handleCheckboxChange = (event, value) => {
-    console.log(value);
-    console.log(event.target.checked);
+  const handleCheckboxChange = async (event, value) => {
     //const tasksArr = sessionStorage.getItem("taskObject");
     //const tasksArrParsed = JSON.parse(tasksArr);
     const tasksArrParsed = taskItems;
@@ -45,16 +44,23 @@ const Todos = ({taskItems,setTaskItems}) => {
     
     sessionStorage.setItem("taskObject", JSON.stringify(tasksArrParsed));
     setTaskItems(tasksArrParsed);
-    //updateTask(tasksArrParsed[value]);
+    
+    const updated_result = await updateTask(tasksArrParsed[value]);
+    console.log("updated:" , updated_result);
    
     
   }
 
-  const handleDelete = (value) => {
+  const handleDelete = async (value) => {
     //deleteTask(taskItems[value]);
+    const deleted_result = await deleteTask(taskItems[value]);
+    console.log("deleted:" , deleted_result);
+    
     const slicedArr = taskItems.slice(0, value).concat(taskItems.slice(value+1)); 
     sessionStorage.setItem("taskObject", JSON.stringify(slicedArr));
     setTaskItems(slicedArr);
+
+    
     
   }
  

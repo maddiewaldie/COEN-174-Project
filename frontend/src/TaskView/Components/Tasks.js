@@ -22,7 +22,7 @@ import { createTask } from '../../RequestOptions/task-requests';
  * TASK DIALOG COMPONENT  
  * **/
 const Tasks = ({taskItems, setTaskItems}) => {
-  
+  let taskID = 0;
   // for task dialog pop-up
   const [open, setOpen] = React.useState(false);
 
@@ -71,15 +71,10 @@ const Tasks = ({taskItems, setTaskItems}) => {
       "deadline": deadline,
       "completed": completed
     })
-    
-
-    } catch (e) {
-      console.log("error", e);
-    }
     if (result[0]) {
-      const taskID = result[0].id;
+       taskID = result[0].id;
     }
-    
+
     setTask({
       account_id: accountID,
       task_id: taskID,
@@ -89,9 +84,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
       deadline: deadline,
       completed: completed
     })
-   
-    
-   
+
 
 
     //setCompleted(false);
@@ -117,10 +110,10 @@ const Tasks = ({taskItems, setTaskItems}) => {
     setTaskItems(tasksArr);
     sessionStorage.setItem("taskObject", JSON.stringify(tasksArr));
 
-  
-  
-
-  
+    } catch (e) {
+      console.log("error", e);
+    }
+    
 }
   return (
     <div>

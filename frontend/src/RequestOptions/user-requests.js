@@ -69,7 +69,7 @@ export async function createUser (user) {
         body: JSON.stringify({"type":'create_account',"params":user})
     };
     try {
-        console.log("hi");
+        
         console.log(requestOptions);
         const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
         console.log(response);

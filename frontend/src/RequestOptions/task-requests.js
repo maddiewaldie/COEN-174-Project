@@ -2,10 +2,11 @@ export async function updateTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'update_task', task_id: taskItem.id, completed: taskItem.completed})
+        body: JSON.stringify({"type":'update_task', "params": taskItem})
     };
     try {
-        const response = await fetch('https://localhost:8000/endpoint.php', requestOptions);
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        console.log("response");
         return response.json();
     } catch (err) {
         console.log("error", err);
@@ -19,10 +20,11 @@ export async function deleteTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'delete_task', task_id: taskItem.taskID})
+        body: JSON.stringify({"type":'delete_task', "params": {"task_id": taskItem.task_id}})
     };
     try {
-        const response = await fetch('https://localhost:8000/endpoint.php', requestOptions);
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        console.log("response");
         return response.json();
     } catch (err) {
         console.log("error", err);
@@ -35,10 +37,10 @@ export async function getTask (user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'get_tasks_from_user_id', account_id: user.accountID})
+        body: JSON.stringify({"type":'get_tasks_from_user_id', "params": user.account_id})
     };
     try {
-        const response = await fetch('https://localhost:8000/endpoint.php', requestOptions);
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
         return response.json();
     } catch (err) {
         console.log("error", err);
