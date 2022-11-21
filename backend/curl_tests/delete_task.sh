@@ -8,13 +8,13 @@ MARK_IDS="$(echo "$IDS" | sed '4p;d')"
 TINO_IDS="$(echo "$IDS" | sed '5p;d')"
 
 # Delete some tasks from some users
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0].get[0][0] | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0].get[0].task_id | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
 echo
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0].get[1][0] | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
-echo
-
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$LOUIE_IDS" | jq .[0].get[0][0] | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$AASTHA_IDS" | jq .[0].get[1].task_id | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
 echo
 
-curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$MADDIE_IDS" | jq .[0].get[0][0] | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$LOUIE_IDS" | jq .[0].get[0].task_id | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
+echo
+
+curl -s --header "Content-Type: application/json" --request POST --data '{"type":"delete_task","params":{"task_id":"'"$(echo "$MADDIE_IDS" | jq .[0].get[0].task_id | tr -d '"')"'"}}' http://localhost:8000/endpoint.php
 echo
