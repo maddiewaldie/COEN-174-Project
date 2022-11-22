@@ -60,7 +60,7 @@ foreach($queries as $q) {
 		//if(!$return_response) print "Query \"$q\" succeeded<br>";
 		$res_hash["success"] = 1;
 		if(preg_match("/^INSERT/", $q)) $res_hash["id"] = mysqli_insert_id($db);
-		if($return_response) $res_hash["get"] = mysqli_fetch_all($res);
+		if($return_response) $res_hash["get"] = mysqli_fetch_all($res, MYSQLI_ASSOC);
 	}
 	else {
 		//print "Error: Query \"$q\" failed: " . mysqli_error($db) . "<br>";
