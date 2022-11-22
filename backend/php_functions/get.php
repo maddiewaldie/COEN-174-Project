@@ -64,7 +64,7 @@ function get_tasks_from_user_id($json_hash) {
 	$account_id = mysqli_real_escape_string($db, $json_hash['account_id']);
 
 	// Create queries
-	array_push($queries, "SELECT task_id FROM Tasks WHERE account_id = '$account_id'");
+	array_push($queries, "SELECT * FROM Tasks WHERE account_id = '$account_id'");
 
 	return $queries;
 }

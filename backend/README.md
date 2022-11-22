@@ -202,12 +202,18 @@ The SQL database consists of the following tables:
 ```JSON
 [
 	{
-		"query": "SELECT task_id FROM Tasks WHERE account_id = ACCOUNT_ID",
+		"query": "SELECT * FROM Tasks WHERE account_id = ACCOUNT_ID",
 		"success": BOOL,
 		"get": [
-			[
-				TASK_ID
-			],
+			{
+				"task_id": INT,
+				"account_id": INT,
+				"task_name": STRING,
+				"category": STRING,
+				"deadline": DATE,
+				"priority": STRING,
+				"completed": BOOL
+			},
 			...
 		]
 	}
@@ -215,8 +221,7 @@ The SQL database consists of the following tables:
 ```
 
 - `ACCOUNT_ID` is replaced with the value of field `account_id`
-- `TASK_ID` is replaced with the returned task id value
-	- There will be 0 or more `TASK_ID`s returned
+- The `get` field is an array which may contain 0 or more tasks. Each task contains all relevant information about the task (value of all columns)
 
 ### `get_user_id`
 
@@ -238,9 +243,9 @@ The SQL database consists of the following tables:
 		"query": "SELECT account_id FROM Accounts WHERE username = USERNAME AND password = PASSWORD",
 		"success": BOOL,
 		"get": [
-			[
-				USER_ID
-			]
+			{
+				"account_id": INT
+			}
 		]
 	}
 ]
@@ -248,7 +253,6 @@ The SQL database consists of the following tables:
 
 - `USERNAME` is replaced with the value of field `username`
 - `PASSWORD` is replaced with the value of field `password`
-- `USER_ID` is replaced with the returned user id value
 
 ### `update_account`
 
