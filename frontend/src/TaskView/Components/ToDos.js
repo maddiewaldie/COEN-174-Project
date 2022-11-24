@@ -23,8 +23,7 @@ const Todos = ({taskItems,setTaskItems}) => {
   const toggle = (checked) => () => {
       // current index = 0 
       const currentIndex = done.indexOf(checked);
-      const newList = [];
-      newList.push(done[checked]); //new list copies current done array
+      const newList = [...done];
   
       if (currentIndex === -1) {
         newList.push(checked);
@@ -36,12 +35,12 @@ const Todos = ({taskItems,setTaskItems}) => {
       
   };
 
+  
   const handleCheckboxChange = async (event, value) => {
-    //const tasksArr = sessionStorage.getItem("taskObject");
-    //const tasksArrParsed = JSON.parse(tasksArr);
+    
     const tasksArrParsed = taskItems;
     console.log(tasksArrParsed[value]);
-    console.log(event.target.checked);
+    console.log(event.target.checked); 
     tasksArrParsed[value].completed = tasksArrParsed ? 1 : 0;
     tasksArrParsed[value].completed = event.target.checked;
     
@@ -87,11 +86,11 @@ const Todos = ({taskItems,setTaskItems}) => {
                 <ListItemButton role={undefined} onClick={toggle(value)} dense>
                     <Checkbox
                       edge="start"
-                      done={done.indexOf(value) !== -1}
+                  
                       tabIndex={-1}
                       disableRipple
                       inputProps={{ 'aria-labelledby': labelId }}
-                      checked={task.completed}
+                      checked={done.indexOf(value) !== -1}
                       onChange={(e)=> handleCheckboxChange(e, value)}
                     />
                      <ListItemText primary ={task.task_name} />

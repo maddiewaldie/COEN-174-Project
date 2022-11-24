@@ -34,7 +34,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
   const [priority, setPriority] = React.useState("");
   const [deadline, setDeadline] = React.useState(dayjs('2022-10-31').format('YYYY-MM-DD').toString());
   //const [accountID, setAccountID] = React.useState(0);
-  const [completed, setCompleted] = React.useState(false);
+  const [completed, setCompleted] = React.useState(0);
   // task object 
   const [task, setTask] = React.useState({
     account_id: 1,
@@ -43,7 +43,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
     category: "",
     priority: "",
     deadline: dayjs('2022-10-31').format('YYYY-MM-DD').toString(),
-    completed: false
+    completed: 0
   });
 
   // task dialog box handling
@@ -58,10 +58,10 @@ const Tasks = ({taskItems, setTaskItems}) => {
   }
 
   React.useEffect(() => {
-    console.log("tempTask: ", tempTask)
-  }, [tempTask]);
+    console.log("taskItems: ", taskItems)
+  }, [taskItems]);
 
-
+  
   const handleClose = async (event) => {
     event.preventDefault();
     setOpen(false);
@@ -82,7 +82,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
       if (result[0]) {
         taskID = result[0].id;
       }
-
+      
       setTask({
         account_id: accountID,
         task_id: taskID,
@@ -92,18 +92,19 @@ const Tasks = ({taskItems, setTaskItems}) => {
         deadline: deadline,
         completed: completed
       })
+     
       tempTask = await getTask(accountID);
       console.log("convert to boolean: ", Boolean(tempTask.completed));
-      tempTask.completed = Boolean(tempTask.completed);
-      //tasksArr.push(tempTask[0].get); 
-      setTaskItems(tempTask[0].get);
+      tempTask.completed = Boolean(tempTask.completed); 
+     
+      
+      setTaskItems(tempTask[0].get); 
       const tasksArr = [...taskItems];
 
       
-      sessionStorage.setItem("taskObject", JSON.stringify(tasksArr));
+      sessionStorage.setItem("taskObject", JSON.stringify(tasksArr)); //setting to session storage
 
 
-    //setCompleted(false);
     /*let tempTask = { 
       account_id: accountID,
       task_id: taskID,

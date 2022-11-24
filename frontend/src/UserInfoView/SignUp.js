@@ -51,8 +51,6 @@ const SignUp = () => {
           if (result[0]){
             account_id = result[0].id;
             console.log("account_id: ", account_id);
-            // account_id = JSON.parse(result)[0].get[0] || 1;
-           
             localStorage.setItem("account_id", account_id);
            
             setAccount({
@@ -62,35 +60,12 @@ const SignUp = () => {
             });
           }
           
-          
-          
         } catch(e){
           console.log("error", e);
         }
 
-       
       }
 
-      
-
-    /*  let params = {
-        username: username,
-        password: password
-      }
-      let xhttp = new XMLHttpRequest();
-
-      // debug
-      console.log(api_endpoint);
-      console.log(params);
-
-      xhttp.open("POST", api_endpoint, true);
-      xhttp.setRequestHeader("Content-Type", "application/json");
-      xhttp.onload = function(){
-        // TODO Check if error or success
-        console.log(this.response);
-        localStorage.setItem("user", JSON.stringify(this.response.data));
-      }
-      xhttp.send(JSON.stringify({type: 'create_account', params: {params} }));*/
 
     };
 
