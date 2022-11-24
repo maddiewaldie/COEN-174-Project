@@ -30,7 +30,7 @@ const LoginPage = () => {
         const result = await getUser({username: data.get('username'), password: data.get('password')});
         console.log("result: " , result);
         if (result[0]){
-          const account_id = result[0].get[0][0];
+          const account_id = result[0].get[0].account_id;
           //const account_id = result[0].id;
           localStorage.setItem("account_id", account_id);
           

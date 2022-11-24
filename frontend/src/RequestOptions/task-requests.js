@@ -33,11 +33,11 @@ export async function deleteTask (taskItem) {
 }
 
 
-export async function getTask (user) {
+export async function getTask (account_id) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({"type":'get_tasks_from_user_id', "params": user.account_id})
+        body: JSON.stringify({"type":'get_tasks_from_user_id', "params": {"account_id": account_id}})
     };
     try {
         const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);

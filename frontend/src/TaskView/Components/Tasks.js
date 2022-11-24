@@ -16,13 +16,15 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { createTask } from '../../RequestOptions/task-requests';
+import { createTask, getTask } from '../../RequestOptions/task-requests';
 
 /** 
  * TASK DIALOG COMPONENT  
  * **/
 const Tasks = ({taskItems, setTaskItems}) => {
   let taskID = 0;
+  let accountID = 1;
+  let tempTask={};
   // for task dialog pop-up
   const [open, setOpen] = React.useState(false);
 
@@ -31,7 +33,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
   const [category, setCategory] = React.useState("");
   const [priority, setPriority] = React.useState("");
   const [deadline, setDeadline] = React.useState(dayjs('2022-10-31').format('YYYY-MM-DD').toString());
-  const [accountID, setAccountID] = React.useState(0);
+  //const [accountID, setAccountID] = React.useState(0);
   const [completed, setCompleted] = React.useState(false);
   // task object 
   const [task, setTask] = React.useState({
@@ -54,41 +56,55 @@ const Tasks = ({taskItems, setTaskItems}) => {
     event.preventDefault();
     setOpen(false);
   }
+
+  React.useEffect(() => {
+    console.log("tempTask: ", tempTask)
+  }, [tempTask]);
+
+
   const handleClose = async (event) => {
     event.preventDefault();
     setOpen(false);
     try {
         // 1. CREATE the data on the backend (with a fetch)
     
-    const accountID = JSON.parse(localStorage.getItem("account_id")) || false; //assuming id 
-    console.log("accountID from handleClose", accountID);
-    
-    const result = await createTask({
-      "account_id": accountID,
-      "task_name" : name,
-      "category": category,
-      "priority": priority,
-      "deadline": deadline,
-      "completed": completed
-    })
-    if (result[0]) {
-       taskID = result[0].id;
-    }
+      accountID = JSON.parse(localStorage.getItem("account_id")) || false; //assuming id 
+      console.log("accountID from handleClose", accountID);
+      
+      const result = await createTask({
+        "account_id": accountID,
+        "task_name" : name,
+        "category": category,
+        "priority": priority,
+        "deadline": deadline,
+        "completed": completed
+      })
+      if (result[0]) {
+        taskID = result[0].id;
+      }
 
-    setTask({
-      account_id: accountID,
-      task_id: taskID,
-      task_name: name,
-      category: category,
-      priority: priority,
-      deadline: deadline,
-      completed: completed
-    })
+      setTask({
+        account_id: accountID,
+        task_id: taskID,
+        task_name: name,
+        category: category,
+        priority: priority,
+        deadline: deadline,
+        completed: completed
+      })
+      tempTask = await getTask(accountID);
+      console.log("convert to boolean: ", Boolean(tempTask.completed));
+      tempTask.completed = Boolean(tempTask.completed);
+      //tasksArr.push(tempTask[0].get); 
+      setTaskItems(tempTask[0].get);
+      const tasksArr = [...taskItems];
 
+      
+      sessionStorage.setItem("taskObject", JSON.stringify(tasksArr));
 
 
     //setCompleted(false);
-    let tempTask = { 
+    /*let tempTask = { 
       account_id: accountID,
       task_id: taskID,
       task_name: name,
@@ -96,25 +112,13 @@ const Tasks = ({taskItems, setTaskItems}) => {
       priority: priority,
       deadline: deadline,
       completed: completed
-    }
-
-    //let tempTask={};
-    // 2. Re-read and re-render
-   /* React.useEffect(() => {
-        setTaskItems(await getTask(user));
-    }, [tempTask]);*/
-
-
-    const tasksArr = [...taskItems];
-    tasksArr.push(tempTask); 
-    setTaskItems(tasksArr);
-    sessionStorage.setItem("taskObject", JSON.stringify(tasksArr));
-
+    }*/
     } catch (e) {
       console.log("error", e);
     }
-    
-}
+  }
+
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>

@@ -40,6 +40,9 @@ const Todos = ({taskItems,setTaskItems}) => {
     //const tasksArr = sessionStorage.getItem("taskObject");
     //const tasksArrParsed = JSON.parse(tasksArr);
     const tasksArrParsed = taskItems;
+    console.log(tasksArrParsed[value]);
+    console.log(event.target.checked);
+    tasksArrParsed[value].completed = tasksArrParsed ? 1 : 0;
     tasksArrParsed[value].completed = event.target.checked;
     
     sessionStorage.setItem("taskObject", JSON.stringify(tasksArrParsed));
@@ -53,6 +56,7 @@ const Todos = ({taskItems,setTaskItems}) => {
 
   const handleDelete = async (value) => {
     //deleteTask(taskItems[value]);
+    console.log("need to delete: ", taskItems[value]);
     const deleted_result = await deleteTask(taskItems[value]);
     console.log("deleted:" , deleted_result);
     
