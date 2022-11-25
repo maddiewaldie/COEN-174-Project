@@ -1,43 +1,69 @@
-/**Task-related options  */
-
-/* current request format for testing purposes */
-function updateTask (taskItem) {
+export async function updateTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'update_task', task_id: taskItem.id, completed: taskItem.completed})
+        body: JSON.stringify({"type":'update_task', "params": taskItem})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        console.log("response");
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
+
     
 }
 
-function deleteTask (taskItem) {
+export async function deleteTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'delete_task', task_id: taskItem.taskID})
+        body: JSON.stringify({"type":'delete_task', "params": {"task_id": taskItem.task_id}})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        console.log("response");
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 }
 
 
-function getTask (user) {
+export async function getTask (account_id) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'get_tasks_from_user_id', account_id: user.accountID})
+        body: JSON.stringify({"type":'get_tasks_from_user_id', "params": {"account_id": account_id}})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 
 }
 
-function createTask (taskItem) {
+export async function createTask (taskItem) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'create_task', taskItem})
+        body: JSON.stringify({"type":'create_task', "params": taskItem})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        console.log(requestOptions);
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        console.log(response);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 
 }
 

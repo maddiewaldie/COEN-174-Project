@@ -1,54 +1,84 @@
-/**User-related options  */
-
-/* current request format for testing purposes */
-
-
-function updateUsername (user) {
+export async function updateUsername (user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({type:'update_account', account_id: user.account_id, username: user.username})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
     
 }
 
-function updatePassword (user) {
+export async function updatePassword (user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({type:'update_account', account_id: user.account_id, password: user.password})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
     
 }
 
-function deleteUser (user) {
+export async function deleteUser (user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({type:'delete_account', account_id: user.account_id})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 }
 
-function getUser (user) {
+export async function getUser (user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'get_user_id', username: user.username, password: user.password})
+        body: JSON.stringify({"type":'get_user_id', "params":user})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
 
 }
 
-function createUser (user) {
+export async function createUser (user) {
+
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({type:'create_user', user})
+        body: JSON.stringify({"type":'create_account',"params":user})
     };
-    fetch('https://localhost:8080/endpoint.php', requestOptions);
+    try {
+        
+        console.log(requestOptions);
+        const response = await fetch('http://localhost:8000/endpoint.php', requestOptions);
+        console.log(response);
+        return response.json();
+    } catch (err) {
+        console.log("error", err);
+        return {};
+    }
+    
 
 }
 
@@ -83,4 +113,5 @@ function updateUser (user) {
     fetch('https://localhost:8080/endpoint.php', requestOptions);
 
 }*/
+
 

@@ -16,31 +16,34 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { createTask, getTask } from '../../RequestOptions/task-requests';
+
 /** 
  * TASK DIALOG COMPONENT  
  * **/
-const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
-  
+const Tasks = ({taskItems, setTaskItems}) => {
+  let taskID = 0;
+  let accountID = 1;
+  let tempTask={};
   // for task dialog pop-up
   const [open, setOpen] = React.useState(false);
 
   // task items 
-  const [taskID, setTaskID] = React.useState(0);
   const [name, setName] = React.useState("");
-  const [tags, setTags] = React.useState("");
+  const [category, setCategory] = React.useState("");
   const [priority, setPriority] = React.useState("");
-  const [deadline, setDeadline] = React.useState(dayjs('2022-10-31'));
- 
-  
+  const [deadline, setDeadline] = React.useState(dayjs('2022-10-31').format('YYYY-MM-DD').toString());
+  //const [accountID, setAccountID] = React.useState(0);
+  const [completed, setCompleted] = React.useState(0);
   // task object 
   const [task, setTask] = React.useState({
-    account_id: "",
+    account_id: 1,
     task_id: 0,
     task_name: "",
-    tags: "",
+    category: "",
     priority: "",
-    deadline: dayjs('2022-10-31'),
-    completed: false
+    deadline: dayjs('2022-10-31').format('YYYY-MM-DD').toString(),
+    completed: 0
   });
 
   // task dialog box handling
@@ -53,53 +56,70 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
     event.preventDefault();
     setOpen(false);
   }
-  const handleClose = (event) => {
+
+  React.useEffect(() => {
+    console.log("taskItems: ", taskItems)
+  }, [taskItems]);
+
+  
+  const handleClose = async (event) => {
     event.preventDefault();
     setOpen(false);
+    try {
+        // 1. CREATE the data on the backend (with a fetch)
     
-    setTaskID(taskID + 1);
-    const accountID = JSON.parse(localStorage.getItem("user") || "{}").id; //assuming id 
-    setTask({
-      account_id: accountID,
-      task_id: taskID,
-      task_name: name,
-      tags: tags,
-      priority: priority,
-      deadline: deadline,
-      completed: completed
-    })
-   
-    //setCompleted(false);
-    let tempTask = { 
-      account_id: accountID,
-      task_id: taskID,
-      task_name: name,
-      tags: tags,
-      priority: priority,
-      deadline: deadline,
-      completed: completed
-    }
-
-    const tasksArr = [...taskItems];
-    tasksArr.push(tempTask); 
-    setTaskItems(tasksArr);
-    sessionStorage.setItem("taskObject", JSON.stringify(tasksArr));
-
-  };
-  React.useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos', {
-      method: 'POST',
-      body: JSON.stringify(task),
-      headers: {
-          'Content-type': 'application/json; charset=UTF-8'
+      accountID = JSON.parse(localStorage.getItem("account_id")) || false; //assuming id 
+      console.log("accountID from handleClose", accountID);
+      
+      const result = await createTask({
+        "account_id": accountID,
+        "task_name" : name,
+        "category": category,
+        "priority": priority,
+        "deadline": deadline,
+        "completed": completed
+      })
+      if (result[0]) {
+        taskID = result[0].id;
       }
-    })
-    .then(response => response.json())
-    .then(json => {
-      console.log(json);
-    });
-  },[task]);
-  
+      
+      setTask({
+        account_id: accountID,
+        task_id: taskID,
+        task_name: name,
+        category: category,
+        priority: priority,
+        deadline: deadline,
+        completed: completed
+      })
+     
+      tempTask = await getTask(accountID);
+      console.log("convert to boolean: ", Boolean(tempTask.completed));
+      tempTask.completed = Boolean(tempTask.completed); 
+     
+      
+      setTaskItems(tempTask[0].get); 
+      const tasksArr = [...taskItems];
+
+      
+      sessionStorage.setItem("taskObject", JSON.stringify(tasksArr)); //setting to session storage
+
+
+    /*let tempTask = { 
+      account_id: accountID,
+      task_id: taskID,
+      task_name: name,
+      category: category,
+      priority: priority,
+      deadline: deadline,
+      completed: completed
+    }*/
+    } catch (e) {
+      console.log("error", e);
+    }
+  }
+
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -133,12 +153,12 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
               <InputLabel>Tags</InputLabel>
               <Select
                 autoFocus
-                label="tags"
+                label="category"
                 inputProps={{
-                  name: 'tags',
+                  name: 'category',
                 }}
-                value={tags}
-                onChange={(event) => setTags(event.target.value)}
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
                 >
               
                 <MenuItem value="Work">Work</MenuItem>
@@ -182,8 +202,8 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
                 <DesktopDatePicker
                 label="Date desktop"
                 inputFormat="MM/DD/YYYY"
-                value={deadline}
-                onChange={(date) => setDeadline(date)}
+                value={deadline.toString()}
+                onChange={(date) => setDeadline(date.format('YYYY-MM-DD').toString())}
                 renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
@@ -202,5 +222,6 @@ const Tasks = ({taskItems, setTaskItems}, {completed, setCompleted}) => {
 }
 
 export default Tasks;
+
 
 

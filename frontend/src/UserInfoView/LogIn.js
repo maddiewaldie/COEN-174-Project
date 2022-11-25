@@ -10,27 +10,35 @@ import Paper from '@mui/material/Paper';
 import backgroundImage from "../img/mountainImg.jpg";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import {getUser} from '../RequestOptions/user-requests'
 //import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { Link as Linker} from 'react-router-dom'
 
 const LoginPage = () => {
-    const [user, setUser] = useState ({
-      account_id: "",
-      username: "",
-      password: "",
-    });
-    console.log(user);
-
-   
-    const handleSubmit = (event) => {
+    //const account_id = localStorage.getItem("account_id") || 1;
+  
+    const handleSubmit = async (event) => {
       event.preventDefault();
       // do get request here
-      const data = new FormData(event.currentTarget);
-        console.log({
-          username: data.get('username'),
-          password: data.get('password'),
-        });
+      try {
+          const data = new FormData(event.currentTarget);
+          console.log({
+            username: data.get('username'),
+            password: data.get('password'),
+          });
+        const result = await getUser({username: data.get('username'), password: data.get('password')});
+        console.log("result: " , result);
+        if (result[0]){
+          const account_id = result[0].get[0].account_id;
+          //const account_id = result[0].id;
+          localStorage.setItem("account_id", account_id);
+          
+        }
+        //navigate 
+      } catch (e) {
+        console.log("error", e);
+      }
     }
    
       
