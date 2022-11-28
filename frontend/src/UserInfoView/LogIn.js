@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import backgroundImage from "../img/mountainImg.jpg";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import {getUser} from '../RequestOptions/user-requests'
-//import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { Link as Linker} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
-    //const account_id = localStorage.getItem("account_id") || 1;
-  
+    let navigate = useNavigate();
+    const [userErr, setUserErr] = useState(false);
+    const [passErr, setPassErr] = useState(false);
+
     const handleSubmit = async (event) => {
       event.preventDefault();
       // do get request here
@@ -27,13 +25,20 @@ const LoginPage = () => {
             username: data.get('username'),
             password: data.get('password'),
           });
+
+          if (data.get('username') == '') setUserErr(true);
+          if (data.get('password') == '') setPassErr(true);
+
         const result = await getUser({username: data.get('username'), password: data.get('password')});
         console.log("result: " , result);
         if (result[0]){
           const account_id = result[0].get[0].account_id;
-          //const account_id = result[0].id;
           localStorage.setItem("account_id", account_id);
+          navigate("/home");
           
+        } else {
+          setUserErr(true);
+          setPassErr(true);
         }
         //navigate 
       } catch (e) {
@@ -51,8 +56,7 @@ const LoginPage = () => {
               sm={4}
               md={7}
               sx={{
-                backgroundImage: `url(${backgroundImage}`,
-                //backgroundImage: 'url(https://source.unsplash.com/random)',
+    
                 backgroundRepeat: 'no-repeat',
                 backgroundColor: (t) =>
                   t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -87,6 +91,7 @@ const LoginPage = () => {
                       "data-testid": "username",
                     }}
                     autoFocus
+                    error={userErr}
                     
                   />
                   <TextField
@@ -101,6 +106,7 @@ const LoginPage = () => {
                       "data-testid": "password",
                     }}
                     autoComplete="current-password"
+                    error={passErr}
                     
                   />
                   <FormControlLabel

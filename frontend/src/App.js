@@ -1,28 +1,24 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './UserInfoView/LogIn';
 import SignUp from './UserInfoView/SignUp';
 import ProgressTracker from './TrackerView/ProgressTracker';
 import Home from './Home';
 import TaskPage from './TaskView/Pages/TaskPage';
+import PrivateRoutes from './PrivateRoutes';
+
 export default function App() {
   return (
    <Router>
-      <Route exact path='/'>
-          <LoginPage />
-      </Route>
-      <Route path='/signup' >
-          <SignUp />
-      </Route>
-      <Route path='/home' >
-          <Home />
-      </Route>
-      <Route path='/progresstracker' >
-          <ProgressTracker />
-      </Route>
-      <Route path='/TaskPage' >
-          <TaskPage />
-      </Route>
+        <Routes>
+            <Route element={<PrivateRoutes/>}>
+              <Route path='/home' element={<Home />}/>  
+              <Route path='/progresstracker' element={<ProgressTracker />}/>
+              <Route path='/TaskPage' element={<TaskPage />}/>
+            </Route>
+            <Route path='/' element={<LoginPage />}/>
+            <Route path='/signup' element={<SignUp />}/>
+        </Routes>
    </Router>
   );
 }

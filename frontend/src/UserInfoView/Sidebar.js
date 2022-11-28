@@ -8,13 +8,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import Link from '@mui/material/Link';
+import {useNavigate} from 'react-router-dom';
+
 
 export default function Sidebar() {
   
@@ -22,6 +21,30 @@ export default function Sidebar() {
   const [state, setState] = React.useState({
     left: false,
   });
+
+  const navigate = useNavigate();
+  
+  const handleNav = (index) => {
+    switch (index.index) {
+      case 0: 
+        navigate("/home");
+        break;
+      case 1:
+        navigate("/taskpage");
+        break;
+      case 2:
+        navigate("/progresstracker");
+        break;
+      
+    }
+  }
+
+
+  const handleSignOut = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate("/");
+  }
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -41,7 +64,7 @@ export default function Sidebar() {
       <List>
         {['Home', 'Tasks', 'Progress Tracker'].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={()=>handleNav({index})}>
               <ListItemIcon>
                 {icons[index]}
                 
@@ -55,14 +78,19 @@ export default function Sidebar() {
       <List>
         {['Sign Out'].map((text) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton
-              >
-              <ListItemIcon>
-                <LogoutIcon />
+         
+             
+                <ListItemButton 
+                    onClick={()=>handleSignOut()}
+                  >
+                  <ListItemIcon>
+                    <LogoutIcon />
                 
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              
+           
           </ListItem>
         ))}
       </List>
