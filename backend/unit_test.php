@@ -4,12 +4,12 @@ $passed = $failed = 0;
 
 
 #---------------testing for database connection----------------- 
-include '../config.php';
+include 'config.php';
 echo "Connection: Successful";
 
 
 #-----------------------account creation check ---------------------#
-include '../php_functions/create.php';
+include 'php_functions/create.php';
 
 #normal user
 $user1 = array(
@@ -290,7 +290,7 @@ else{
 }
 
 #---------------------account deletion check---------------------#
-include 'delete.php';
+include 'php_functions/delete.php';
 
 #password casecheck
 $duser= array($account_id = 'SELECT * FROM accounts WHERE password = "123ABC" ');
