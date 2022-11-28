@@ -61,7 +61,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
     console.log("taskItems: ", taskItems)
   }, [taskItems]);
 
-  
+  //after adding the task (from dialog box), this function gets called
   const handleClose = async (event) => {
     event.preventDefault();
     setOpen(false);

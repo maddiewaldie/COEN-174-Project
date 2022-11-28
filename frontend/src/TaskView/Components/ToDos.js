@@ -41,7 +41,7 @@ const Todos = ({taskItems,setTaskItems}) => {
     const tasksArrParsed = taskItems;
     console.log(tasksArrParsed[value]);
     console.log(event.target.checked); 
-    tasksArrParsed[value].completed = tasksArrParsed ? 1 : 0;
+    //tasksArrParsed[value].completed = tasksArrParsed ? 1 : 0;
     tasksArrParsed[value].completed = event.target.checked;
     
     sessionStorage.setItem("taskObject", JSON.stringify(tasksArrParsed));
