@@ -36,6 +36,9 @@ switch($body['type']) {
 		$queries = get_user_id($body['params']);
 		$return_response = true;
 		break;
+	case "toggle_task_complete":
+		$queries = toggle_task_complete($body['params']);
+		break;
 	case "update_account":
 		$queries = update_account($body['params']);
 		break;
