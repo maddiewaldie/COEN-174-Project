@@ -29,6 +29,15 @@ $ ./get_tasks_from_user_id.sh
 $ ./delete_account.sh
 ```
 
+#### Toggle Test
+
+```
+$ ./create_account.sh
+$ ./create_task.sh
+$ ./toggle_task_complete.sh
+$ ./delete_account.sh
+```
+
 #### Update Test
 
 ```

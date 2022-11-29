@@ -254,6 +254,32 @@ The SQL database consists of the following tables:
 - `USERNAME` is replaced with the value of field `username`
 - `PASSWORD` is replaced with the value of field `password`
 
+### `toggle_task_complete`
+
+```JSON
+{
+	"type": "toggle_task_complete",
+	"params": {
+		"task_id": TASK_ID
+	}
+}
+```
+
+- Toggle the value of the `complete` field for the task identified by `TASK_ID`
+
+#### return object
+
+```JSON
+[
+	{
+		"query": "UPDATE Tasks SET completed = !completed WHERE task_id = TASK_ID"
+		"success": BOOL
+	}
+]
+```
+
+- `TASK_ID` is replaced with the value of field `task_id`
+
 ### `update_account`
 
 - One or more of the `OPTIONAL` fields must be included

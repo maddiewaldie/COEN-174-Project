@@ -2,6 +2,34 @@
 
 include "config.php";
 
+function toggle_task_complete($json_hash) {
+	GLOBAL $db;
+	$queries = [];
+	$update_query = "";
+
+	// list of mandatory fields
+	$fields = [
+		"task_id"
+	];
+
+	foreach($fields as $f) {
+		if(!array_key_exists($f, $json_hash)) {
+			print "Error: Missing field \"$f\"<br>";
+			return "";
+		}
+	}
+
+	$task_id = mysqli_real_escape_string($db, $json_hash["task_id"]);
+
+	// Build query
+	$update_query = "UPDATE Tasks SET completed = !completed WHERE task_id = $task_id";
+
+	// Push query
+	array_push($queries, $update_query);
+
+	return $queries;
+}
+
 function update_account($json_hash) {
 	GLOBAL $db;
 	$queries = [];
