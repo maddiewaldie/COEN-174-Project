@@ -240,11 +240,13 @@ const ProgressTracker = () => {
         let accountID = JSON.parse(localStorage.getItem("account_id")) || false;
         tempTask = await getTask(accountID);
         console.log(tempTask);
-        let tasks = tempTask[0].get;
+        let fetchTasks = tempTask[0].get;
         console.log(tasks);
-        sessionStorage.setItem("taskProgress", JSON.stringify(tasks));
+        sessionStorage.setItem("taskProgress", JSON.stringify(fetchTasks));
         
     };
+
+    fetchAPITasks();
    
    React.useEffect(()=>{
     fetchAPITasks();
