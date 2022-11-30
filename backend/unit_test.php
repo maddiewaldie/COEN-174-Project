@@ -1,132 +1,322 @@
 <?php
 
-#---------------testing for database connection----------------- #
+$passed = $failed = 0;
+
+
+#---------------testing for database connection----------------- 
 include 'config.php';
-GLOBAL $db;
-print $db;
+echo "Connection: Successful";
+
 
 #-----------------------account creation check ---------------------#
-include 'create.php';
+include 'php_functions/create.php';
 
-#case1: normal user
-$create_usr1 = array($name = "Bob", $password = "123abc");
-$_REQUEST['body'] = $json_encode($create_usr1);
-$_REQUEST['type'] = "create_account";
+#normal user
+$user1 = array(
+    $username = "Bob",
+    $password = "123abc",   
+);
 
-#case2: unexpected field
-$create_usr2 = array($name = "#fn4%&", $password = "234hbbtg");
-$_REQUEST['body'] = $json_encode($create_usr2);
-$_REQUEST['type'] = "create_account";
+$user1_json = json_encode($user1);
+$acc_create_test = create_account($user1_json);
+if($acc_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-#case3: missing field
-$create_usr3 = array($name = "", $password = "234hbbtg");
-$_REQUEST['body'] = $json_encode($create_usr3);
-$_REQUEST['type'] = "create_account";
+#unexpected field
+$user2 = array(
+    $username = "#fn4%&",
+    $password = "234hbbtg",   
+);
 
-$create_usr4 = array($name = "Karl", $password = "");
-$_REQUEST['body'] = $json_encode($create_usr4);
-$_REQUEST['type'] = "create_account";
+$user2_json = json_encode($user2);
+$acc_create_test = create_account($user2_json);
+if($acc_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-#empty case
-$create_usr5 = array($name = "", $password = "");
-$_REQUEST['body'] = $json_encode($create_usr5);
-$_REQUEST['type'] = "create_account";
+#missing field
+$user3 = array(
+    $username = "",
+    $password = "234hbbtg",   
+);
+
+$user3_json = json_encode($user3);
+$acc_create_test = create_account($user3_json);
+if($acc_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
+
+$user3 = array(
+    $username = "Karl",
+    $password = "",   
+);
+
+$user3_json = json_encode($user3);
+$acc_create_test = create_account($user3_json);
+if($acc_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
+
+#empty
+$user4 = array(
+    $username = "",
+    $password = "",   
+);
+
+$user4_json = json_encode($user4);
+$acc_create_test = create_account($user4_json);
+if($acc_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
+
+echo "Account Creation Test: ";
+echo "Total Test Passed: " . $passed . "<br>" ;
+if($failed != 0){
+    echo "Test Failed: " . $failed . "<br>";
+}
+$passed = $failed = 0;
 
 #-----------------------tasks creation check -----------------------#
 
-#case1: normal task
-$create_tsk1 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "test", $category = "homework", $deadline = "2022-31-10", $priority = 3);
-$_REQUEST['body'] = $json_encode($create_tsk1);
-$_REQUEST['type'] = "create_task";
+#normal task
+$task1 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = 'test',
+    $category = 'homework',
+    $deadline = '2022-31-12',
+    $priority = 'high',
+);
 
-#case2:unexpected field
-$create_tsk2 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "1245345g#", $category = "homework", $deadline = "2022-31-10", $priority = 3);
-$_REQUEST['body'] = $json_encode($create_tsk2);
-$_REQUEST['type'] = "create_task";
+$task1_json = json_encode($task1);
+$task_create_test = create_account($task1_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-$create_tsk3 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "test", $category = "214124#12", $deadline = "2022-31-10", $priority = 3);
-$_REQUEST['body'] = $json_encode($create_tsk3);
-$_REQUEST['type'] = "create_task";
+#unexpected field
+$task2 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = '1245345g#',
+    $category = 'homework',
+    $deadline = '2022-31-12',
+    $priority = 'high',
+);
 
-$create_tsk4 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "test", $category = "homework", $deadline = "2021-31-10", $priority = 3);
-$_REQUEST['body'] = $json_encode($create_tsk4);
-$_REQUEST['type'] = "create_task";
+$task2_json = json_encode($task2);
+$task_create_test = create_account($task2_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-$create_tsk5 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "test", $category = "homework", $deadline = "2022-31-10", $priority = "d");
-$_REQUEST['body'] = $json_encode($create_tsk5);
-$_REQUEST['type'] = "create_task";
+$task2 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = 'test',
+    $category = '214124#12',
+    $deadline = '2022-31-12',
+    $priority = 'high',
+);
 
-#case3: missing field
-$create_tsk6 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "", $category = "homework", $deadline = "2022-31-10", $priority = 3);
-$_REQUEST['body'] = $json_encode($create_tsk6);
-$_REQUEST['type'] = "create_task";
+$task2_json = json_encode($task2);
+$task_create_test = create_account($task2_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-$create_tsk7 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "test", $category = "", $deadline = "2022-31-10", $priority = 3);
-$_REQUEST['body'] = $json_encode($create_tsk7);
-$_REQUEST['type'] = "create_task";
+$task2 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = 'test',
+    $category = 'homework',
+    $deadline = '2022-31-12',
+    $priority = 'high',
+);
 
-$create_tsk8 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "test", $category = "homework", $deadline = "", $priority = 3);
-$_REQUEST['body'] = $json_encode($create_tsk8);
-$_REQUEST['type'] = "create_task";
+$task2_json = json_encode($task2);
+$task_create_test = create_account($task2_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-$create_tsk9 = array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "test", $category = "homework", $deadline = "2022-31-10");
-$_REQUEST['body'] = $json_encode($create_tsk9);
-$_REQUEST['type'] = "create_task";
+$task2 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = 'test',
+    $category = 'homework',
+    $deadline = '2022-31-12',
+    $priority = 3,
+);
 
-# empty case
-$create_tsk10= array($account_id = 'SELECT id FROM accounts WHERE name= $name, password= $password',$task_name = "", $category = "", $deadline = "");
-$_REQUEST['body'] = $json_encode($create_tsk10);
-$_REQUEST['type'] = "create_task";
+$task2_json = json_encode($task2);
+$task_create_test = create_account($task2_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-#---------------------printing account/task table---------------------#
+#missing field
+$task3 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = '',
+    $category = 'homework',
+    $deadline = '2022-31-12',
+    $priority = 'high',
+);
 
-$account_sql = 'SELECT * FROM accounts';
+$task3_json = json_encode($task3);
+$task_create_test = create_account($task3_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-$result = mysqli_query($db, $account_sql);
-$usr = mysqli_fetch_all($result, MYSQLI_ASSOC);
-print $usr;
+$task3 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = 'test',
+    $category = '',
+    $deadline = '2022-31-12',
+    $priority = 'high',
+);
 
-$task_sql = 'SELECT * FROM tasks';
+$task3_json = json_encode($task3);
+$task_create_test = create_account($task3_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
 
-$result = mysqli_query($db, $task_sql);
-$task = mysqli_fetch_all($result, MYSQLI_ASSOC);
-print $task;
+$task3 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = 'test',
+    $category = 'homework',
+    $deadline = '',
+    $priority = 'high',
+);
+
+$task3_json = json_encode($task3);
+$task_create_test = create_account($task3_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
+
+$task3 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = 'test',
+    $category = 'homework',
+    $deadline = '2022-31-12',
+    $priority = '',
+);
+
+$task3_json = json_encode($task3);
+$task_create_test = create_account($task3_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
+
+#empty
+$task4 = array(
+    $account_id = 'SELECT id FROM accounts WHERE name = user1[0], password = user1[1]',
+    $task_name = '',
+    $category = '',
+    $deadline = '',
+    $priority = '',
+);
+
+$task4_json = json_encode($task4);
+$task_create_test = create_account($task4_json);
+if($task_create_test){
+    $passed++;
+}
+else{
+    $failed++;
+}
+
+
+echo "Task Creation Test: ";
+echo "Total Test Passed: " . $passed . "<br>" ;
+if($failed != 0){
+    echo "Test Failed: " . $failed . "<br>";
+}
 
 #-----------------------task deletion check----------------------#
 
-$del_task= array($task_id = 'SELECT * FROM tasks WHERE id= 1');
-$_REQUEST['body'] = $json_encode($del_task);
-$_REQUEST['type'] = "delete_task";
+$dtask= array($task_id = 'SELECT * FROM tasks WHERE id= 1');
+$dtask_json = json_encode($dtask);
+$task_del_test = delete_task($dtesk_json);
 
-$task_sql = 'SELECT * FROM tasks';
-
-$result = mysqli_query($db, $task_sql);
-$task = mysqli_fetch_all($result, MYSQLI_ASSOC);
-print $task;
+echo "Task Deletion Test (Database after creation test should have one valid entry)";
+if($task_del_test){
+    echo "Deletion Successful";
+}
+else{
+    echo "Deletion Failed";
+}
 
 #---------------------account deletion check---------------------#
-include 'delete.php';
+include 'php_functions/delete.php';
 
 #password casecheck
-$del_usr= array($id = 'SELECT * FROM accounts WHERE name="Bob", password="123ABC" ');
-$_REQUEST['body'] = $json_encode($del_usr);
-$_REQUEST['type'] = "delete_account";
+$duser= array($account_id = 'SELECT * FROM accounts WHERE password = "123ABC" ');
+$duser_json = json_encode($duser);
+$user_del_test = delete_task($duser_json);
 
-$account_sql = 'SELECT * FROM accounts';
-
-$result = mysqli_query($db, $account_sql);
-$usr = mysqli_fetch_all($result, MYSQLI_ASSOC);
-print $usr;
+echo "Account Deletion Test (Database after creation test should have one valid entry)";
+if($user_del_test){
+    echo "Deletion Successful";
+}
+else{
+    echo "Deletion Failed";
+}
 
 #properly delete
-$del_usr= array($id = 'SELECT * FROM accounts WHERE name="Bob", password="123abc" ');
-$_REQUEST['body'] = $json_encode($del_usr);
-$_REQUEST['type'] = "delete_account";
+$duser= array($account_id = 'SELECT * FROM accounts WHERE password = user1[1]');
+$duser_json = json_encode($duser);
+$user_del_test = delete_task($duser_json);
 
-$account_sql = 'SELECT * FROM accounts';
+echo "Account Deletion Test (Database after creation test should have one valid entry)";
+if($user_del_test){
+    echo "Deletion Successful";
+}
+else{
+    echo "Deletion Failed";
+}
 
-$result = mysqli_query($db, $account_sql);
-$usr = mysqli_fetch_all($result, MYSQLI_ASSOC);
-print $usr;
 
 ?>

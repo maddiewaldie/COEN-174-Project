@@ -8,6 +8,7 @@ $username = 'USERNAME';
 $password = '';          #Leave blank for no password
 $database = 'DATABASE';
 
+
 $db = mysqli_connect(
 	"$hostname",
 	"$username",
