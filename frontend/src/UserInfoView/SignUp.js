@@ -79,8 +79,10 @@ const SignUp = () => {
 
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <Grid container spacing ={2}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField 
+                      <Grid item xs={12} >
+                        <TextField sx={{
+                            width: "900px"
+                          }}
                             name ="username"
                             required
                             fullWidth
@@ -95,9 +97,9 @@ const SignUp = () => {
                             error={userErr}
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                     
                         
-                      </Grid>
+                      
                       <Grid item xs={12} >
                         <TextField
                             name ="password"
