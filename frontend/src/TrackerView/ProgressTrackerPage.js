@@ -2,6 +2,7 @@ import * as React from 'react';
 import ProgressTracker from './ProgressTracker';
 import Sidebar from '../UserInfoView/Sidebar';
 import { getTask } from '../RequestOptions/task-requests';
+import './Progress.css';
 
 const ProgressTrackerPage = () => {
 //    let tempTask = {};

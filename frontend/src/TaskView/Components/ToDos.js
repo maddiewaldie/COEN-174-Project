@@ -20,18 +20,30 @@ const Todos = ({taskItems,setTaskItems}) => {
   const [done, setDone] = useState([1]);
   const [tagColor, setTagColor] = useState("primary");
   
-  const toggle = (checked) => () => {
+  const toggle = ( value) => {
       // current index = 0 
-      const currentIndex = done.indexOf(checked);
+      const currentIndex = done.indexOf(value);
       const newList = [...done];
   
       if (currentIndex === -1) {
-        newList.push(checked);
+        newList.push(value);
       } else {
         newList.splice(currentIndex, 1);     
       }
   
       setDone(newList);
+
+      /*const tasksArrParsed = taskItems;
+      console.log(tasksArrParsed[value]);
+      console.log(event.target.checked); 
+      //tasksArrParsed[value].completed = tasksArrParsed ? 1 : 0;
+      tasksArrParsed[value].completed = event.target.checked;
+      
+      sessionStorage.setItem("taskObject", JSON.stringify(tasksArrParsed));
+      setTaskItems(tasksArrParsed);
+      
+      const updated_result = await updateTask(tasksArrParsed[value]);
+      console.log("updated:" , updated_result);*/
       
   };
 
@@ -42,7 +54,8 @@ const Todos = ({taskItems,setTaskItems}) => {
     console.log(tasksArrParsed[value]);
     console.log(event.target.checked); 
     //tasksArrParsed[value].completed = tasksArrParsed ? 1 : 0;
-    tasksArrParsed[value].completed = event.target.checked;
+    tasksArrParsed[value].completed = Number(event.target.checked);
+    console.log(tasksArrParsed[value].completed);
     
     sessionStorage.setItem("taskObject", JSON.stringify(tasksArrParsed));
     setTaskItems(tasksArrParsed);
@@ -83,14 +96,14 @@ const Todos = ({taskItems,setTaskItems}) => {
                 key={value}
                 disablePadding
               >      
-                <ListItemButton role={undefined} onClick={toggle(value)} dense>
+                <ListItemButton role={undefined} dense onClick={()=>toggle(value)} >
                     <Checkbox
                       edge="start"
-                  
+                      checked={done.indexOf(value) !== -1}
                       tabIndex={-1}
                       disableRipple
                       inputProps={{ 'aria-labelledby': labelId }}
-                      checked={done.indexOf(value) !== -1}
+                      
                       onChange={(e)=> handleCheckboxChange(e, value)}
                     />
                      <ListItemText primary ={task.task_name} />
@@ -98,12 +111,9 @@ const Todos = ({taskItems,setTaskItems}) => {
                         color={tagColor}/>
                       <RemoveCircleOutlineRoundedIcon
                         onClick={()=> handleDelete(value)} />
-                    
 
                 </ListItemButton>
-             
-                     
-                    
+  
               </ListItem >
           );
         
