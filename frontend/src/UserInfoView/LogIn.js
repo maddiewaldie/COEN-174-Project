@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import {getUser} from '../RequestOptions/user-requests'
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom'
+import './LogIn.css'
 
 const LoginPage = () => {
     let navigate = useNavigate();
@@ -55,14 +56,7 @@ const LoginPage = () => {
               xs={false}
               sm={4}
               md={7}
-              sx={{
-    
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: (t) =>
-                  t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
+              
             />
             
               <Box
@@ -75,8 +69,8 @@ const LoginPage = () => {
                 }}
                 >
               
-                <Typography component="h1" variant="h5">
-                  Sign in
+                <Typography component="h1" variant="h5">               
+                  Sign in               
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <TextField
@@ -113,7 +107,7 @@ const LoginPage = () => {
                     control={<Checkbox value="remember" color="primary" />}
                     label="Remember me"
                   />
-              
+              <div id= "signInButton">
                     <Button
                       type="submit"
                       fullWidth
@@ -122,11 +116,14 @@ const LoginPage = () => {
                     >
                       Sign In
                     </Button>
-                 
+              </div>
+              <div id= "forgotPassButton">
                   <Grid container>
                     <Grid item xs>
                       <Link href="#" variant="body2">
+                      
                         Forgot password?
+                      
                       </Link>
                     </Grid>
                     <Grid item>
@@ -135,6 +132,7 @@ const LoginPage = () => {
                       </Link>
                     </Grid>
                   </Grid>
+                </div>
                 </Box>
               </Box>
             </Grid>

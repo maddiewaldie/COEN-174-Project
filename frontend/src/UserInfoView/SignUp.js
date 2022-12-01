@@ -9,6 +9,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { createUser } from '../RequestOptions/user-requests';
+import './SignUp.css'
 
 const theme = createTheme();
 const SignUp = () => {
@@ -70,13 +71,18 @@ const SignUp = () => {
                alignItems: 'center',
               }}
             />
+            <div id= "signUpText">
             <Typography component="h1" variant="h5">
                   Sign Up
             </Typography>
+            </div>
+
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                   <Grid container spacing ={2}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField 
+                      <Grid item xs={12} >
+                        <TextField sx={{
+                            width: "900px"
+                          }}
                             name ="username"
                             required
                             fullWidth
@@ -91,9 +97,9 @@ const SignUp = () => {
                             error={userErr}
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                     
                         
-                      </Grid>
+                      
                       <Grid item xs={12} >
                         <TextField
                             name ="password"
@@ -111,7 +117,7 @@ const SignUp = () => {
                       </Grid>    
                   </Grid>
    
-                
+                  <div id= "signUpButton">
                     <Button
                       // onClick={handleSubmit}
                       type="submit"
@@ -122,7 +128,8 @@ const SignUp = () => {
                     >
                       Sign Up
                     </Button>
-                  
+                  </div>
+
                   <Grid container>
                     <Grid item>
                       <Link href="/" variant="body2">
