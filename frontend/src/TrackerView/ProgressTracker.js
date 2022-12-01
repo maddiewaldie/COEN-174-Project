@@ -275,15 +275,22 @@ const ProgressTracker = () => {
 
     return (
       <Box sx={{ my: 4 }}>
-        <Typography align="center" variant="h4" component="h1" gutterBottom sx={{ marginLeft: `0px`}}>
-          Progress Tracker
+        <Typography align="center" variant="h4" paddingTop="20px" component="h1" gutterbottom sx={{ marginLeft: `0px`}}>
+          PROGRESS TRACKER
         </Typography>
         <div style={{  
           display: "grid",  
-          gridTemplateColumns: "1fr 1fr"  
+          gridTemplateColumns: "1fr 1fr", 
+          paddingLeft: "100px", 
+          paddingTop: "40px"
           }}>
             <LeftSideProgressTracker />
-            <RightSideProgressTracker />
+            <RightSideProgressTracker 
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  width:'400px'
+                }}/>
           </div>
       </Box>
     );

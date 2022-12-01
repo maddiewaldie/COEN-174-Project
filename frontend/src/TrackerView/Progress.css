@@ -1,0 +1,59 @@
+.main {
+    display: flex;
+
+    padding-left: 10px;
+}
+
+.KiXeR {
+    margin-top: 80px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 150px;
+}
+
+.hRqyRy {
+    margin: 0;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+    text-align: center;
+    margin-bottom: 0.35em;
+    padding-top: 30px;
+}
+
+.hIsrKh {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.235;
+    letter-spacing: 0.00735em;
+    text-align: center;
+    margin-bottom: 0.35em;
+    margin-left: 0px;
+    margin-right: 60px !important;
+}
+.cZYiAc {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-weight: 400;
+    font-size: 30px !important;
+    line-height: 1.235;
+    letter-spacing: 0.00735em;
+    text-align: center;
+    margin-left: 0px;
+}
+#sidebar {
+    display: flex;
+    padding-right: 10px;
+}
+
+#ProgressTracker {
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    padding-left: 400px;
+}
