@@ -20,7 +20,15 @@ let percentTasksCompleted = 0;
 let tasksToDo = [];
 let tasks = [];
 let dueDates = [];
-let feelings = [0, 0, 0, 0, 0];
+let numLowPriority = 0;
+let numMediumPriority = 0;
+let numHighPriority = 0;
+let numWork = 0;
+let numPersonal = 0;
+let numHealth = 0;
+let numErrands = 0;
+let numLeisure = 0;
+let numMiscellaneous = 0;
 
 const marks = [
   {
@@ -98,7 +106,7 @@ function UpcomingToDos() {
             <TimelineConnector />
           </TimelineSeparator>
           <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography variant="h6" component="span">
+            <Typography variant="h" component="span">
               {tasks[index]}
             </Typography>
             <Typography>Due: {dueDates[index]}</Typography>
@@ -109,56 +117,101 @@ function UpcomingToDos() {
   );
 }
 
-function LinearProgressWithLabel() {
+function TasksByPriorityChart() {
   return (
     <Box sx={{alignItems: 'center' }}>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box sx={{ width: '100%', mr: 1 }}> 
-          <LinearProgress variant="determinate" value={feelings[0]} thickness={10} sx={{ marginLeft: `100px`}}/> 
+          <LinearProgress variant="determinate" value={numLowPriority} thickness={10} sx={{ marginLeft: `10px`}}/> 
         </Box>
-        <Box sx={{ marginRight: `100px` }}> 
-          <Typography variant="h3" color="text.secondary"> 😕 </Typography> 
-        </Box>
-      </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}> 
-          <LinearProgress variant="determinate" value={feelings[1]} thickness={10} sx={{ marginLeft: `100px`}}/> 
-        </Box>
-        <Box sx={{ marginRight: `100px` }}> 
-          <Typography variant="h3" color="text.secondary"> 😐 </Typography> 
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Low </Typography> 
         </Box>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box sx={{ width: '100%', mr: 1 }}> 
-          <LinearProgress variant="determinate" value={feelings[2]} thickness={10} sx={{ marginLeft: `100px`}}/> 
+          <LinearProgress variant="determinate" value={numMediumPriority} thickness={10} sx={{ marginLeft: `10px`}}/> 
         </Box>
-        <Box sx={{ marginRight: `100px` }}> 
-          <Typography variant="h3" color="text.secondary"> 🙂 </Typography> 
-        </Box>
-      </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ width: '100%', mr: 1 }}> 
-          <LinearProgress variant="determinate" value={feelings[3]} thickness={10} sx={{ marginLeft: `100px`}}/> 
-        </Box>
-        <Box sx={{ marginRight: `100px` }}> 
-          <Typography variant="h3" color="text.secondary"> 😁 </Typography> 
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Med </Typography> 
         </Box>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Box sx={{ width: '100%', mr: 1 }}> 
-          <LinearProgress variant="determinate" value={feelings[4]} thickness={10} sx={{ marginLeft: `100px`}}/> 
+          <LinearProgress variant="determinate" value={numHighPriority} thickness={10} sx={{ marginLeft: `10px`}}/> 
         </Box>
-        <Box sx={{ marginRight: `100px` }}> 
-          <Typography variant="h3" color="text.secondary"> 🤩 </Typography> 
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> High </Typography> 
         </Box>
       </Box>
     </Box>
   );
 }
 
-function LinearDeterminate() {
+function TasksByCategoryChart() {
   return (
-    <Box sx={{ width: '100%' }}> <LinearProgressWithLabel /> </Box>
+    <Box sx={{alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}> 
+          <LinearProgress variant="determinate" value={numWork} thickness={10} sx={{ marginLeft: `10px`}}/> 
+        </Box>
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Work </Typography> 
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}> 
+          <LinearProgress variant="determinate" value={numPersonal} thickness={10} sx={{ marginLeft: `10px`}}/> 
+        </Box>
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Personal </Typography> 
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}> 
+          <LinearProgress variant="determinate" value={numHealth} thickness={10} sx={{ marginLeft: `10px`}}/> 
+        </Box>
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Health </Typography> 
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}> 
+          <LinearProgress variant="determinate" value={numErrands} thickness={10} sx={{ marginLeft: `10px`}}/> 
+        </Box>
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Errands </Typography> 
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}> 
+          <LinearProgress variant="determinate" value={numLeisure} thickness={10} sx={{ marginLeft: `10px`}}/> 
+        </Box>
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Leisure </Typography> 
+        </Box>
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}> 
+          <LinearProgress variant="determinate" value={numMiscellaneous} thickness={10} sx={{ marginLeft: `10px`}}/> 
+        </Box>
+        <Box sx={{ marginRight: `10px` }}> 
+          <Typography variant="h6" color="text.secondary"> Misc. </Typography> 
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+function TasksByPriority() {
+  return (
+    <Box sx={{ width: '100%' }}> <TasksByPriorityChart /> </Box>
+  );
+}
+
+function TasksByCategory() {
+  return (
+    <Box sx={{ width: '100%' }}> <TasksByCategoryChart /> </Box>
   );
 }
 
@@ -185,50 +238,13 @@ function LeftSideProgressTracker() {
 }
 
 function RightSideProgressTracker() {
-  const handleChange = (value) => {
-    console.log(value);
-    if(value == 1) {
-      feelings[0] = feelings[0] + 1;
-    }
-    else if(value == 2) {
-      feelings[1] = feelings[1] + 1;
-    }
-    else if(value == 3) {
-      feelings[2] = feelings[2] + 1;
-    }
-    else if(value == 4) {
-      feelings[3] = feelings[3] + 1;
-    }
-    else if(value == 5) {
-      feelings[4] = feelings[4] + 1;
-    }
-  };
   return (
     <Box sx={{ my: 4 }}>
-      <Typography align="center" variant="h6" component="h1" gutterBottom >
-        How do you feel about your progress today?
-      </Typography>
-      <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-      }}>
-        <Slider
-          aria-label="Restricted values"
-          defaultValue={0}
-          valueLabelFormat={valueLabelFormat}
-          getAriaValueText={valuetext}
-          step={null}
-          valueLabelDisplay="auto"
-          marks={marks}
-          onChange={handleChange({valuetext})}
-          gutterBottom 
-          sx={{ marginLeft: `100px`, marginRight: `100px`}}
-        />
-      </div>
+      <Typography align="center" variant="h6" component="h1" gutterBottom > Remaining Tasks by Priority </Typography>
+      <TasksByPriority />
       &nbsp;
-      <Typography align="center" variant="h6" component="h1" gutterBottom > How You've Been Feeling </Typography>
-      <LinearDeterminate />
+      <Typography align="center" variant="h6" component="h1" gutterBottom > Remaining Tasks by Category </Typography>
+      <TasksByCategory />
     </Box>
   );
 }
@@ -265,22 +281,69 @@ const ProgressTracker = () => {
       tasksToDo.push(taskProgress[i].task_name);
       tasks.push(taskProgress[i].task_name);
       dueDates.push(taskProgress[i].deadline);
+      if(taskProgress[i].priority == "Low") {
+        numLowPriority = numLowPriority + 10;
+      }
+      else if(taskProgress[i].priority == "Medium") {
+        numMediumPriority = numMediumPriority + 10;
+      }
+      else if(taskProgress[i].priority == "High") {
+        numHighPriority = numHighPriority + 10;
+      }
+
+      if(taskProgress[i].category == "Work") {
+        numWork = numWork + 10;
+      }
+      else if(taskProgress[i].category == "Personal") {
+        numPersonal = numPersonal + 10;
+      }
+      else if(taskProgress[i].category == "Health") {
+        numHealth = numHealth + 10;
+      }
+      else if(taskProgress[i].category == "Errands") {
+        numErrands = numErrands + 10;
+      }
+      else if(taskProgress[i].category == "Leisure") {
+        numLeisure = numLeisure + 10;
+      }
+      else if(taskProgress[i].category == "Miscellaneous") {
+        numMiscellaneous = numMiscellaneous + 10;
+      }
     }
     console.log(numberOfCompletedTasks);
   }
   percentTasksCompleted =  (numberOfCompletedTasks / taskProgress.length) * 100;
   console.log(percentTasksCompleted);
-
-  
-
     return (
-      <Box sx={{ my: 4 }}>
+      <Box sx={{ my: 2}}>
         <Typography align="center" variant="h4" component="h1" gutterBottom sx={{ marginLeft: `0px`}}>
           Progress Tracker
         </Typography>
+        &nbsp;
+        <Typography align="center" variant="h6" component="h1" gutterBottom >
+          How do you feel about your progress today?
+        </Typography>
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}>
+          <Slider
+            aria-label="Restricted values"
+            defaultValue={0}
+            valueLabelFormat={valueLabelFormat}
+            getAriaValueText={valuetext}
+            step={null}
+            valueLabelDisplay="auto"
+            marks={marks}
+            gutterBottom 
+            sx={{ marginLeft: `100px`, marginRight: `100px`}}
+          />
+        </div>
+        &nbsp;
         <div style={{  
           display: "grid",  
-          gridTemplateColumns: "1fr 1fr"  
+          gridTemplateColumns: "1fr 1fr", 
           }}>
             <LeftSideProgressTracker />
             <RightSideProgressTracker />
