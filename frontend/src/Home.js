@@ -8,14 +8,18 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as Linker} from 'react-router-dom'
+import './Home.css'
+import Sidebar from './UserInfoView/Sidebar';
 
 const theme = createTheme();
 const Home = () => {
     return (
         <Box sx={{ my: 4 }}>
+          <div id= "goalTrackText">
           <Typography variant="h4" component="h1" gutterBottom>
             Goal Tracking App
           </Typography>
+          </div>
           <div style={{  
             display: "grid",  
             gridTemplateColumns: "1fr 1fr"  
