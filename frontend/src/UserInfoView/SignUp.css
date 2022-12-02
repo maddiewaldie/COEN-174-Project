@@ -1,0 +1,23 @@
+#signUpButton { 
+    display: flex;
+    position: relative;
+    justify-content: center; 
+    top: 100px;
+}
+
+#signUpText { 
+    display: flex;
+ 
+    position: relative;
+    justify-content: center; 
+    top: 90px;
+}
+
+.MuiGrid-root {
+    
+    position: relative;
+    justify-content: center;
+    top: 50px;
+}
+
+

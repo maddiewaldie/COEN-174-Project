@@ -14,6 +14,8 @@ import Select from '@mui/material/Select';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { createTask, getTask } from '../../RequestOptions/task-requests';
@@ -32,7 +34,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
   const [name, setName] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [priority, setPriority] = React.useState("");
-  const [deadline, setDeadline] = React.useState(dayjs('2022-10-31').format('YYYY-MM-DD').toString());
+  const [deadline, setDeadline] = React.useState(dayjs(new Date()).format('YYYY-MM-DD').toString());
   //const [accountID, setAccountID] = React.useState(0);
   const [completed, setCompleted] = React.useState(0);
   // task object 
@@ -57,9 +59,9 @@ const Tasks = ({taskItems, setTaskItems}) => {
     setOpen(false);
   }
 
-  React.useEffect(() => {
+  /*React.useEffect(() => {
     console.log("taskItems: ", taskItems)
-  }, [taskItems]);
+  }, [taskItems]);*/
 
   //after adding the task (from dialog box), this function gets called
   const handleClose = async (event) => {
@@ -122,9 +124,9 @@ const Tasks = ({taskItems, setTaskItems}) => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add Task
-      </Button>
+      <Fab color="primary" aria-label="add" size="small" onClick={handleClickOpen}>
+        <AddIcon />
+      </Fab>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Task</DialogTitle>
         <DialogContent>
@@ -153,6 +155,9 @@ const Tasks = ({taskItems, setTaskItems}) => {
               <InputLabel>Tags</InputLabel>
               <Select
                 autoFocus
+                sx={{
+                  width: '230px',
+                }}
                 label="category"
                 inputProps={{
                   name: 'category',
@@ -184,6 +189,9 @@ const Tasks = ({taskItems, setTaskItems}) => {
             <FormControl sx={{ mt: 2, minWidth: 120 }}>
               <InputLabel>Priority</InputLabel>
               <Select
+                sx={{
+                  width: '230px'
+                }}
                 autoFocus
                 label="priority"
                 inputProps={{
@@ -195,21 +203,36 @@ const Tasks = ({taskItems, setTaskItems}) => {
                 <MenuItem value="High">High</MenuItem>
                 <MenuItem value="Medium">Medium</MenuItem>
                 <MenuItem value="Low">Low</MenuItem>
+
               
               </Select>
+              </FormControl>
+            </Box>
+              
+            <Box
+            noValidate
+            component="form"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              m: 'auto',
+              width: 'fit-content',
+            }}
+            >
+               <FormControl sx={{ mt: 2, minWidth: 120 }}>
 
+            
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DesktopDatePicker
-                label="Date desktop"
+                label="Deadline"
                 inputFormat="MM/DD/YYYY"
                 value={deadline.toString()}
                 onChange={(date) => setDeadline(date.format('YYYY-MM-DD').toString())}
                 renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
-            </FormControl>
-              
-           
+              </FormControl>
+            
           </Box>
         </DialogContent>
         <DialogActions>
@@ -222,6 +245,3 @@ const Tasks = ({taskItems, setTaskItems}) => {
 }
 
 export default Tasks;
-
-
-
