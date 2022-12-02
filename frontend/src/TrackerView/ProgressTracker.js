@@ -13,6 +13,7 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import BrightnessHighRoundedIcon from '@mui/icons-material/BrightnessHighRounded';
 import Slider from '@mui/material/Slider';
 import LinearProgress from '@mui/material/LinearProgress';
+import dayjs from 'dayjs';
 import { getTask } from '../RequestOptions/task-requests';
 
 const theme = createTheme();
@@ -88,28 +89,25 @@ function PercentCompleteGraph(props) {
 }
 
 function UpcomingToDos() {
+  console.log("in here",tasksToDo[0]);
   return (
     <Timeline position="alternate">
-    {tasksToDo.map((tasksToDo, index) => (
+    {tasksToDo.map((task, index) => (
           <TimelineItem>
-          <TimelineOppositeContent
-            sx={{ m: 'auto 0' }}
-            align="right"
-            variant="body2"
-            color="text.secondary"
-          />
+          
           <TimelineSeparator>
-            <TimelineConnector />
+           
             <TimelineDot color="primary">
-              <BrightnessHighRoundedIcon />
+             
             </TimelineDot>
             <TimelineConnector />
           </TimelineSeparator>
-          <TimelineContent sx={{ py: '12px', px: 2 }}>
-            <Typography variant="h" component="span">
+          <TimelineContent>
               {tasks[index]}
-            </Typography>
-            <Typography>Due: {dueDates[index]}</Typography>
+          <TimelineContent>
+          Due: {dueDates[index]}
+          </TimelineContent>
+           
           </TimelineContent>
         </TimelineItem>
       ))}
@@ -280,7 +278,7 @@ const ProgressTracker = () => {
     else {
       tasksToDo.push(taskProgress[i].task_name);
       tasks.push(taskProgress[i].task_name);
-      dueDates.push(taskProgress[i].deadline);
+      dueDates.push(dayjs(taskProgress[i].deadline).format('MM/DD'));
       if(taskProgress[i].priority == "Low") {
         numLowPriority = numLowPriority + 10;
       }
@@ -316,7 +314,12 @@ const ProgressTracker = () => {
   console.log(percentTasksCompleted);
     return (
       <Box sx={{ my: 4 }}>
-        <Typography align="center" variant="h4" paddingTop="20px" component="h1" gutterbottom sx={{ marginLeft: `0px`}}>
+        <Typography align="center" 
+        variant="h4" 
+        paddingTop="20px"
+
+        component="h1" 
+        gutterbottom sx={{ marginLeft: `10px`}}>
           PROGRESS TRACKER
         </Typography>
         &nbsp;
@@ -352,7 +355,7 @@ const ProgressTracker = () => {
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  width:'400px'
+                  width:'500px'
                 }}/>
           </div>
       </Box>
