@@ -34,7 +34,7 @@ const Tasks = ({taskItems, setTaskItems}) => {
   const [name, setName] = React.useState("");
   const [category, setCategory] = React.useState("");
   const [priority, setPriority] = React.useState("");
-  const [deadline, setDeadline] = React.useState(dayjs('2022-10-31').format('YYYY-MM-DD').toString());
+  const [deadline, setDeadline] = React.useState(dayjs(new Date()).format('YYYY-MM-DD').toString());
   //const [accountID, setAccountID] = React.useState(0);
   const [completed, setCompleted] = React.useState(0);
   // task object 
